@@ -24,15 +24,15 @@ function AppTextInput({ icon, ...otherProps }) {
 }
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    backgroundColor: defaultStyles.color.white,
-    borderRadius: 25,
-    flexDirection: "row",
-    padding: 10,
-    marginVertical: 5,
+    // width: "100%",
+    // backgroundColor: defaultStyles.color.white,
+    // borderRadius: 25,
+    // flexDirection: "row",
+    // padding: 10,
+    // marginVertical: 5,
   },
   icon: {
-    marginRight: 10,
+    // marginRight: 10,
   },
 });
 export default AppTextInput;

@@ -6,19 +6,21 @@ import Icon from "../Icon";
 import AppText from "../AppText";
 import AppButton from "../AppButton";
 
-const FormSubmit = ({ icon, title }) => {
+const FormSubmit = ({ icon, title, style }) => {
   const { handleSubmit } = useFormikContext();
   return (
-    <>
-      {icon ? (
-        <View style={styles.btnContainer}>
-          <AppText style={styles.title}> {title} </AppText>
-          <Icon onPress={handleSubmit} size={50} name={"arrow-right"} />
-        </View>
-      ) : (
-        <AppButton onPress={handleSubmit} title={title} />
-      )}
-    </>
+    // <>
+    //   {icon ? (
+    //     <View style={styles.btnContainer}>
+    //       <AppText style={styles.title}> {title} </AppText>
+    //       <Icon onPress={handleSubmit} size={50} name={"arrow-right"} />
+    //     </View>
+    //   ) : (
+    //     <AppButton onPress={handleSubmit} title={title} />
+    //   )}
+    // </>
+
+    <AppButton style={style} onPress={handleSubmit} title={title} />
   );
 };
 

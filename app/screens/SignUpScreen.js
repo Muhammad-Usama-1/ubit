@@ -1,12 +1,19 @@
 import {
   Button,
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
+  Keyboard,
 } from "react-native";
+import * as yup from "yup";
+
 import React, { useState } from "react";
 import Screen from "../components/Screen";
 import Icon from "../components/Icon";
@@ -15,98 +22,130 @@ import AppButton from "../components/AppButton";
 import { color } from "../config/colors";
 // import { TextStyle } from "../config/styles";
 import defaultStyles from "../config/styles";
+import AppForm from "../components/forms/AppForm";
+import AppFormInput from "../components/forms/AppFormInput";
+import FormSubmit from "../components/forms/FormSubmit";
+import { Field } from "formik";
+import ButtonComponent from "../components/ButtonComponent";
+
+const validationSchema = yup.object().shape({
+  email: yup.string().email().required().label("Email"),
+  password: yup.string().min(4).required().label("Password"),
+  selectedButton: yup
+    .string()
+    .required("Please select an option")
+    .label("Student/Employeer"),
+
+  // createdOn: yup.date().default(function () {
+  //   return new Date();
+  // }),
+});
 const SignUpScreen = ({ navigation }) => {
   const [activeButton, setActiveButton] = useState(null);
-
   const handleButtonPress = (buttonName) => {
     setActiveButton(buttonName);
   };
 
+  const handleSignUp = async (values) => {
+    console.log(values);
+  };
   return (
+    // <KeyboardAvoidingView style={styles.container} behavior="padding">
     <Screen>
-      <ImageBackground
-        source={{
-          uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
-        }}
-        resizeMethod="resize"
-        style={styles.loginBackgroundImg}
-      ></ImageBackground>
-      {/* <View style={styles.categorycontainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          {/* <ImageBackground
+          source={{
+            uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
+          }}
+          resizeMethod="resize"
+          style={styles.loginBackgroundImg}
+        ></ImageBackground> */}
+          {/* <View style={styles.categorycontainer}>
         <AppText > Student</AppText>
        
         <AppText> Employer</AppText>
       </View> */}
-      <AppText style={styles.subHeading}>Sign up Now</AppText>
-      <View style={styles.containerBTN}>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            activeButton === "button1" ? styles.activeButton : null,
-          ]}
-          onPress={() => handleButtonPress("button1")}
-        >
-          <Text style={styles.buttonText}>Student</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            activeButton === "button2" ? styles.activeButton : null,
-          ]}
-          onPress={() => handleButtonPress("button2")}
-        >
-          <Text style={styles.buttonText}>Employer</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* <AppTextInput></AppTextInput> */}
-      <View style={styles.inputContainer}>
-        <TextInput placeholder="Your email address" style={styles.inputFeild} />
-        <TextInput
-          secureTextEntry
-          placeholder="Enter Password"
-          style={styles.inputFeild}
-        />
-        <AppButton
-          colorText={"white"}
-          title={"Sign UP"}
-          style={styles.loginBtn}
-        ></AppButton>
-
-        <View style={styles.redirecttoSignUp}>
-          <AppText style={styles.text}>Already have an Account?</AppText>
-          <Text
-            // style={styles.signupText}
-            style={[defaultStyles.text, styles.signupText]}
-            onPress={() => navigation.navigate("Sign In")}
+          <AppForm
+            initialValues={{ email: "", password: "", selectedButton: "" }}
+            onSubmit={handleSignUp}
+            validationSchema={validationSchema}
           >
-            Login
-          </Text>
-          {/* <Button title="login" style={styles.signupText}></Button> */}
-        </View>
+            <ImageBackground
+              source={{
+                uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
+              }}
+              resizeMethod="resize"
+              style={styles.loginBackgroundImg}
+            ></ImageBackground>
+            <AppText style={styles.subHeading}>Sign up Now</AppText>
 
-        <AppText style={styles.signinwithText}> Sign in with </AppText>
-      </View>
+            <ButtonComponent name={"selectedButton"} />
 
-      <View style={styles.signinOptions}>
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"google"}
-        />
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"facebook"}
-        />
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"apple"}
-        />
-      </View>
+            {/* <AppTextInput></AppTextInput> */}
+            <View style={styles.inputContainer}>
+              <AppFormInput
+                name="email"
+                placeholder="Your email address"
+                style={styles.inputFeild}
+              />
+
+              <AppFormInput
+                name="password"
+                secureTextEntry
+                placeholder="Enter Password"
+                style={styles.inputFeild}
+              />
+              {/* <AppButton
+            colorText={"white"}
+            title={"Sign UP"}
+            style={styles.loginBtn}
+          ></AppButton> */}
+
+              {/* <Field type="hidden" name="selectedButton" /> */}
+
+              <FormSubmit style={styles.loginBtn} title={"sign Up"} />
+
+              <View style={styles.redirecttoSignUp}>
+                <AppText style={styles.text}>Already have an Account?</AppText>
+                <Text
+                  // style={styles.signupText}
+                  style={[defaultStyles.text, styles.signupText]}
+                  onPress={() => navigation.navigate("Sign In")}
+                >
+                  Login
+                </Text>
+                {/* <Button title="login" style={styles.signupText}></Button> */}
+              </View>
+
+              <AppText style={styles.signinwithText}> Sign in with </AppText>
+            </View>
+
+            <View style={styles.signinOptions}>
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"google"}
+              />
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"facebook"}
+              />
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"apple"}
+              />
+            </View>
+          </AppForm>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </Screen>
   );
 };
@@ -120,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // height: 100,
     paddingVertical: 10,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
   button: {
     backgroundColor: "#eee",
@@ -206,7 +245,7 @@ const styles = StyleSheet.create({
   inputFeild: {
     borderBottomWidth: 1,
     borderBottomColor: "black",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   inputContainer: {
     textAlign: "center",
