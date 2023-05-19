@@ -6,7 +6,7 @@ import Icon from "../Icon";
 import AppText from "../AppText";
 import AppButton from "../AppButton";
 
-const FormSubmit = ({ icon, title, style }) => {
+const FormSubmit = ({ icon, title, style, bgcolor, colorText }) => {
   const { handleSubmit } = useFormikContext();
   return (
     // <>
@@ -20,7 +20,13 @@ const FormSubmit = ({ icon, title, style }) => {
     //   )}
     // </>
 
-    <AppButton style={style} onPress={handleSubmit} title={title} />
+    <AppButton
+      bgcolor={bgcolor}
+      colorText={colorText}
+      style={style}
+      onPress={handleSubmit}
+      title={title}
+    />
   );
 };
 

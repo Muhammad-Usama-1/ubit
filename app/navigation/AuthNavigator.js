@@ -6,6 +6,7 @@ import LoginScreen from "../screens/LoginScreen";
 import ForgotPasswdScreen from "../screens/ForgotPasswdScreen";
 import ResetVerityOTPScreen from "../screens/ResetVerityOTPScreen";
 import ResetPasswdScreen from "../screens/ResetPasswdScreen";
+import VerifyEmailScreen from "../screens/VerifyEmailScreen";
 
 // import RegisterScreen from "../screens/RegisterScreen";
 // import SignInScreen from "../screens/SignInScreen";
@@ -51,6 +52,11 @@ const AuthNavigator = () => {
             options={{ headerShown: false }}
             name="Reset"
             component={ResetPasswdScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Verify Email"
+            component={VerifyEmailScreen}
           />
         </>
       )}

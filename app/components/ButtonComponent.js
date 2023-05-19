@@ -5,6 +5,7 @@ import { color } from "../config/colors";
 import ErrorMsg from "./forms/ErrorMsg";
 
 const ButtonComponent = ({ name }) => {
+  // console.log(errors);
   const { errors, touched, setFieldValue, values } = useFormikContext();
 
   //   const { setFieldValue, values, errors, touched } = useFormikContext();
@@ -13,7 +14,7 @@ const ButtonComponent = ({ name }) => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.containerBTN}>
         <TouchableOpacity
           style={[
@@ -37,12 +38,16 @@ const ButtonComponent = ({ name }) => {
         {/* // Ensure 'name' matches the field name used in Formik */}
       </View>
       <ErrorMsg error={errors[name]} visible={touched[name]} />
-    </>
+    </View>
   );
 };
 
 export default ButtonComponent;
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
   containerBTN: {
     flexDirection: "row",
     justifyContent: "space-around",

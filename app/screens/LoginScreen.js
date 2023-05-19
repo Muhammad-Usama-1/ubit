@@ -22,6 +22,7 @@ import AppForm from "../components/forms/AppForm";
 import FormSubmit from "../components/forms/FormSubmit";
 import apiClient from "../api/apiConfig";
 import { create } from "apisauce";
+import { useRoute } from "@react-navigation/native";
 
 // Create an API instance using the base URL
 // const api = create({
@@ -37,6 +38,7 @@ const validationSchema = yup.object().shape({
   // }),
 });
 const LoginScreen = ({ navigation }) => {
+  const route = useRoute();
   const handleLogin = async (values) => {
     const { email, password } = values;
     // console.log(values);
@@ -65,7 +67,10 @@ const LoginScreen = ({ navigation }) => {
         style={styles.loginBackgroundImg}
       ></ImageBackground>
       <AppForm
-        initialValues={{ email: "", password: "" }}
+        initialValues={{
+          email: `${route?.params?.email || ""}`,
+          password: "",
+        }}
         onSubmit={handleLogin}
         validationSchema={validationSchema}
       >
@@ -75,13 +80,13 @@ const LoginScreen = ({ navigation }) => {
           <AppFormInput
             name="email"
             placeholder="Your email address"
-            style={styles.inputFeild}
+            // style={styles.inputFeild}
           />
           <AppFormInput
             secureTextEntry
             name="password"
             placeholder="Enter Password"
-            style={styles.inputFeild}
+            // style={styles.inputFeild}
           />
           <FormSubmit style={styles.loginBtn} icon={true} title={"sign in"} />
 

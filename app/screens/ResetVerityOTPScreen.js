@@ -6,15 +6,23 @@ import { color } from "../config/colors";
 import OtpInput from "./TestScreen";
 import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
+import { useRoute } from "@react-navigation/native";
+// import OtpInput from "../components/OtpInput";
+import AppForm from "../components/forms/AppForm";
 
 const ResetVerityOTPScreen = ({ navigation }) => {
+  const route = useRoute();
+
   return (
     <Screen>
+      {/* <AppForm></AppForm> */}
       <View style={styles.container}>
         <AppHeading style={styles.heading}>
           Please enter the varifcation code we have sent to
         </AppHeading>
-        <AppHeading style={styles.heading}>busy@busy.com</AppHeading>
+        <AppHeading style={styles.heading}>
+          {route.params?.email || " busy@busy.com"}
+        </AppHeading>
         <OtpInput />
         <AppButton
           onPress={() => navigation.navigate("Reset")}

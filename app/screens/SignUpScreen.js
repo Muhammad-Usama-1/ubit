@@ -27,6 +27,7 @@ import AppFormInput from "../components/forms/AppFormInput";
 import FormSubmit from "../components/forms/FormSubmit";
 import { Field } from "formik";
 import ButtonComponent from "../components/ButtonComponent";
+import apiClient from "../api/apiConfig";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().required().label("Email"),
@@ -48,6 +49,28 @@ const SignUpScreen = ({ navigation }) => {
 
   const handleSignUp = async (values) => {
     console.log(values);
+    const { email, password } = values;
+    // console.log(values);
+    try {
+      const data = await apiClient.post("users/create", {
+        email,
+        password,
+        name: "Md Usama",
+
+        gender: "male",
+        role: "admin",
+      });
+      if (data.status >= 400) {
+        alert(data.data);
+        return;
+      }
+      console.log(data.status);
+      alert("will redirect to  OTP verify..");
+      // navigation.navigate("Verify Email");
+      navigation.navigate("Verify Email", { email });
+    } catch (error) {
+      console.log("ERROR", error);
+    }
   };
   return (
     // <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -69,7 +92,11 @@ const SignUpScreen = ({ navigation }) => {
         <AppText> Employer</AppText>
       </View> */}
           <AppForm
-            initialValues={{ email: "", password: "", selectedButton: "" }}
+            initialValues={{
+              email: "mdusama225@gmail.com",
+              password: "pass1234",
+              selectedButton: "",
+            }}
             onSubmit={handleSignUp}
             validationSchema={validationSchema}
           >
@@ -89,14 +116,14 @@ const SignUpScreen = ({ navigation }) => {
               <AppFormInput
                 name="email"
                 placeholder="Your email address"
-                style={styles.inputFeild}
+                // style={styles.inputFeild}
               />
 
               <AppFormInput
                 name="password"
                 secureTextEntry
                 placeholder="Enter Password"
-                style={styles.inputFeild}
+                // style={styles.inputFeild}
               />
               {/* <AppButton
             colorText={"white"}

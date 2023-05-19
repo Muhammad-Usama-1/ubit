@@ -47,6 +47,7 @@ export default function App() {
     <NavigationContainer>
       <AuthNavigator />
     </NavigationContainer>
+    // <LoginScreen />
     // <KeyboardAvoidingComponent />
   );
 }
