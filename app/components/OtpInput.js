@@ -15,7 +15,7 @@ const OtpInput = ({ name }) => {
 
     // Focus on the next input field
     if (index < refInputs.current.length - 1 && value) {
-      refInputs.current[index + 1].focus();
+      refInputs?.current[index + 1]?.focus();
     }
   };
 
@@ -28,7 +28,7 @@ const OtpInput = ({ name }) => {
   return (
     <View>
       <View style={styles.container}>
-        {[0, 1, 2, 3, 4, 5].map((index) => (
+        {[0, 1, 2, 3].map((index) => (
           <TextInput
             key={index}
             ref={(input) => (refInputs.current[index] = input)}
