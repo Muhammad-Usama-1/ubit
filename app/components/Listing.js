@@ -6,13 +6,13 @@ import { color } from "../config/colors";
 import AppTag from "./AppTag";
 // import { useNavigation } from "@react-navigation/native";
 
-const Listing = ({ item, deleteAction }) => {
+const Listing = ({ item, deleteAction, onPress }) => {
   //   const navigation = useNavigation();
   return (
     <View style={styles.jobCardContainer}>
       <TouchableOpacity
         //   onPress={() => navigation.navigate("ListingsDetails", { item })}
-        onPress={() => console.log("afsa")}
+        onPress={onPress}
         style={styles.container}
       >
         <Image

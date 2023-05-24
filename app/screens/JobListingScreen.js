@@ -17,7 +17,7 @@ import AppText from "../components/AppText";
 import { Ionicons } from "@expo/vector-icons";
 // import { Ionicons } from '@expo/vector-icons';
 
-const JobListingScreen = () => {
+const JobListingScreen = ({ navigation }) => {
   const data = [
     {
       id: 3,
@@ -98,7 +98,12 @@ const JobListingScreen = () => {
           style={styles.listOfJob}
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Listing item={item} />}
+          renderItem={({ item }) => (
+            <Listing
+              onPress={() => navigation.navigate("JobsDetails", { data: item })}
+              item={item}
+            />
+          )}
         />
       </View>
     </Screen>
