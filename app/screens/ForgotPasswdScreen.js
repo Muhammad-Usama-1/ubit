@@ -20,15 +20,15 @@ const ForgotPasswdScreen = ({ navigation }) => {
     // console.log(values);
     try {
       //  uncomment this to simulate real API
-      // const data = await apiClient.post("users/forgetPassword", {
-      //   email,
-      // });
-      // if (data.status >= 400) {
-      //   alert(data.data);
-      //   return;
-      // }
-      // console.log(data.status);
-      // alert("OTP Send to your email");
+      const data = await apiClient.post("users/forgetPassword", {
+        email,
+      });
+      if (data.status >= 400) {
+        alert(data.data);
+        return;
+      }
+      console.log(data.status);
+      alert("OTP Send to your email");
       navigation.navigate("Forgot2", { email });
     } catch (error) {
       console.log("ERROR", error);
