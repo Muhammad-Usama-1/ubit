@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
   },
   loginBackgroundImg: {
     width: "100%",
-    height: 200,
+    // height: 200,
+    height: 150,
     overflow: "hidden",
     borderRadius: 10,
     marginBottom: 30,
