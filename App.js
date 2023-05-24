@@ -29,6 +29,7 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 // import JobDetails from "./app/screens/JobDetail";
 // import JobDetails from "./app/screens/JobDetails";
 import { NavigationContainer } from "@react-navigation/native";
+import AppNavigator from "./app/navigation/AppNavigator";
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
 
@@ -44,11 +45,15 @@ export default function App() {
   //   </>
   // );
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <AuthNavigator />
+    // </NavigationContainer>
+    // <JobListingScreen />
     // <LoginScreen />
     // <KeyboardAvoidingComponent />
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
 
