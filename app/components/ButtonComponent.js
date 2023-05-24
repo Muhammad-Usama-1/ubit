@@ -45,21 +45,21 @@ const ButtonComponent = ({ name }) => {
 export default ButtonComponent;
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
-    marginHorizontal: 20,
+    // marginVertical: 1,
+    // marginHorizontal: 20,
   },
   containerBTN: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     // height: 100,
-    paddingVertical: 10,
+    // paddingVertical: 10,
     // backgroundColor: "#fff",
   },
   button: {
     backgroundColor: "#eee",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
   },
   buttonText: {
