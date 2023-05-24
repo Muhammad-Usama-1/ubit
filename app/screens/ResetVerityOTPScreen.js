@@ -25,16 +25,16 @@ const ResetVerityOTPScreen = ({ navigation }) => {
       alert("OTP must be length 4 ");
     }
     try {
-      // const data = await apiClient.post("users/verification", {
-      //   otp: values.otp,
-      // });
-      // if (data.status >= 400) {
-      //   alert(data.data.error);
-      //   console.log(data.data);
-      //   return;
-      // }
-      // console.log(data.status);
-      // alert("OTP verify Success");
+      const data = await apiClient.post("users/verification", {
+        otp: values.otp,
+      });
+      if (data.status >= 400) {
+        alert(data.data.error);
+        console.log(data.data);
+        return;
+      }
+      console.log(data.status);
+      alert("OTP verify Success");
       navigation.navigate("Reset");
     } catch (error) {
       console.log("ERROR", error);
