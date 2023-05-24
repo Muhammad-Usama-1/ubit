@@ -15,6 +15,13 @@ export const Padding = {
   p_medium: 15,
   p_large: 20,
 };
+
+export const Margin = {
+  mr_small: 5,
+  mr_main: 10,
+  mr_medium: 15,
+  mr_large: 20,
+};
 export const Border = {
   br_small: 5,
   br_main: 10,
