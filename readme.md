@@ -1,6 +1,9 @@
 ## TODO
 
-Resend now button of OTP
+Resend now button of OTP,
+bootom tabs.
+authContext setup.
+navigation between jobs
 
 ## FIXED
 
@@ -14,6 +17,7 @@ Reset password screen
 ## FUTURE IMPROVEMENT
 
 1. Use global style
+1. Use useApi for calling to backend
 
 ## For Shahzman
 
