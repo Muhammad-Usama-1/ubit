@@ -15,6 +15,7 @@ import { color } from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "../components/AppText";
 import { Ionicons } from "@expo/vector-icons";
+import { FontSize } from "../config/styles";
 // import { Ionicons } from '@expo/vector-icons';
 
 const JobListingScreen = ({ navigation }) => {
@@ -22,12 +23,6 @@ const JobListingScreen = ({ navigation }) => {
     {
       id: 3,
       title: "Cyber Security",
-      images:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
-    },
-    {
-      id: 4,
-      title: "Node JS Developer",
       images:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
     },
@@ -57,7 +52,7 @@ const JobListingScreen = ({ navigation }) => {
   return (
     <Screen>
       <View style={styles.JobListingScreenContainer}>
-        <AppHeading>Job Listing Screen</AppHeading>
+        {/* <AppHeading>Job Listing Screen</AppHeading> */}
 
         {/* JOB POSTER */}
 
@@ -73,7 +68,7 @@ const JobListingScreen = ({ navigation }) => {
           />
         </View>
         {/* Category of Job type */}
-        <AppHeading>Browse By Category</AppHeading>
+        <AppText style={styles.TextCategory}>Browse By Category</AppText>
         <ScrollView style={styles.scrolStyle} horizontal>
           <View horizontal style={styles.categoryContainer}>
             {[1, 2, 3, 4].map((i) => (
@@ -100,6 +95,7 @@ const JobListingScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <Listing
+              special={true}
               onPress={() => navigation.navigate("JobsDetails", { data: item })}
               item={item}
             />
@@ -113,10 +109,15 @@ const JobListingScreen = ({ navigation }) => {
 export default JobListingScreen;
 
 const styles = StyleSheet.create({
+  TextCategory: {
+    fontSize: FontSize.size_lg,
+  },
   mainBox: {
     backgroundColor: "#FBD488",
-    height: 110,
-    width: 110,
+    // backgroundColor: color.danger,
+
+    height: 100,
+    width: 100,
     alignItems: "center",
     position: "relative",
     overflow: "visible",
@@ -124,10 +125,10 @@ const styles = StyleSheet.create({
   },
   whiteBox: {
     backgroundColor: color.white,
-    height: 120,
+    height: 100,
     position: "absolute",
     top: -20,
-    width: 90,
+    width: 80,
     borderRadius: 10,
     flex: 1,
     justifyContent: "center",
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
   listOfJob: {
     marginTop: 10,
     maxHeight: 200,
+    maxHeight: 180,
   },
 
   //
@@ -165,7 +167,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   JobListingScreenContainer: {
-    backgroundColor: color.primary,
+    backgroundColor: color.danger,
+
+    paddingHorizontal: 5,
     flex: 1,
   },
   categoryContainer: {
@@ -177,6 +181,7 @@ const styles = StyleSheet.create({
   },
   categoryStyle: {
     margin: 4,
+    // backgroundColor: color.danger,
     // backgroundColor: color.darkPrimray,
   },
   categoryName: {
