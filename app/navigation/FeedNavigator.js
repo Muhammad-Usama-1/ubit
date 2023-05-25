@@ -8,14 +8,23 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import JobListingScreen from "../screens/JobListingScreen";
 import JobDetails from "../screens/JobDetails";
 import ApplyToJobScreen from "../screens/ApplyToJobScreen";
+import AvailableJobScreen from "../screens/AvailableJobScreen";
 
 const Stack = createNativeStackNavigator();
 
 const FeedNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
     <Stack.Screen name="Jobs" component={JobListingScreen} />
     <Stack.Screen name="applyjob" component={ApplyToJobScreen} />
-    {/* <Stack.Screen name="Listings" component={List} /> */}
+    <Stack.Screen
+      options={{ headerShown: true }}
+      name="availableJobs"
+      component={AvailableJobScreen}
+    />
 
     <Stack.Screen name="JobsDetails" component={JobDetails} />
     {/* <Stack.Screen name="Messages" component={MessagesScreen} /> */}
