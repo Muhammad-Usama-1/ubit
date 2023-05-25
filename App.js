@@ -29,6 +29,7 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 // import JobDetails from "./app/screens/JobDetail";
 // import JobDetails from "./app/screens/JobDetails";
 import { NavigationContainer } from "@react-navigation/native";
+import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -51,7 +52,7 @@ export default function App() {
     // <JobListingScreen />
     // <LoginScreen />
     // <KeyboardAvoidingComponent />
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       <AppNavigator />
     </NavigationContainer>
   );
