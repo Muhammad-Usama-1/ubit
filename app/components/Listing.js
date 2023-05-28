@@ -5,24 +5,29 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "../config/colors";
 import AppTag from "./AppTag";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 
-const Listing = ({ item, deleteAction, onPress, special }) => {
-  const navigation = useNavigation();
+const Listing = ({
+  item,
+  deleteAction,
+  onPress,
+  special,
+  navigation,
+  specialPress,
+}) => {
+  // const navigation = useNavigation();
   return (
     <View style={styles.jobCardContainer}>
       {special && (
         <View style={styles.allandSuggestContainer}>
           <AppText style={styles.greyText}>suggested Jobs</AppText>
-          <AppText
-            onPress={() => navigation.navigate("availableJobs")}
-            style={styles.greyText}
-          >
+          <AppText onPress={specialPress} style={styles.greyText}>
             see all
           </AppText>
         </View>
       )}
       <TouchableOpacity
-        //   onPress={() => navigation.navigate("ListingsDetails", { item })}
+        // onPress={() => navigation.navigate("JobsDetails", { item })}
         onPress={onPress}
         style={styles.container}
       >
@@ -33,9 +38,9 @@ const Listing = ({ item, deleteAction, onPress, special }) => {
           }}
         />
         <View style={styles.detailsContainer}>
-          <AppText style={styles.title}> {item.title} </AppText>
+          {/* <AppText style={styles.title}> {item.title} </AppText> */}
           <AppText style={{ color: color.dark, fontWeight: "bold" }}>
-            React Developer
+            {item.title}
           </AppText>
         </View>
 
