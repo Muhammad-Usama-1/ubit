@@ -9,6 +9,7 @@ import JobListingScreen from "../screens/JobListingScreen";
 import JobDetails from "../screens/JobDetails";
 import ApplyToJobScreen from "../screens/ApplyToJobScreen";
 import AvailableJobScreen from "../screens/AvailableJobScreen";
+import ApplySuccess from "../screens/AppliedSuccessScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,8 @@ const FeedNavigator = () => (
   >
     <Stack.Screen name="Jobs" component={JobListingScreen} />
     <Stack.Screen name="applyjob" component={ApplyToJobScreen} />
+    <Stack.Screen name="applysuccess" component={ApplySuccess} />
+
     <Stack.Screen
       options={{ headerShown: true }}
       name="availableJobs"
