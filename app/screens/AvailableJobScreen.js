@@ -6,7 +6,7 @@ import { color } from "../config/colors";
 const data = [
   {
     id: 3,
-    title: "Cyber Security",
+    title: "Forntend",
     images:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
   },
@@ -18,24 +18,24 @@ const data = [
   },
   {
     id: 5,
-    title: "Node JS Developer",
+    title: "Data Science",
     images:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
   },
   {
     id: 6,
-    title: "Node JS Developer",
+    title: "ML enginner",
     images:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
   },
   {
     id: 7,
-    title: "Node JS Developer",
+    title: "RPA Analyst",
     images:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
   },
 ];
-const AvailableJobScreen = () => {
+const AvailableJobScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList

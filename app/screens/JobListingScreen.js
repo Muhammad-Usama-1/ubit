@@ -23,6 +23,7 @@ const JobListingScreen = ({ navigation }) => {
     {
       id: 3,
       title: "Cyber Security",
+      details: "afs",
       images:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
     },
@@ -96,6 +97,7 @@ const JobListingScreen = ({ navigation }) => {
           renderItem={({ item }) => (
             <Listing
               special={true}
+              specialPress={() => navigation.navigate("availableJobs")}
               onPress={() => navigation.navigate("JobsDetails", { data: item })}
               item={item}
             />
