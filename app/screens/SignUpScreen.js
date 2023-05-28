@@ -58,7 +58,7 @@ const SignUpScreen = ({ navigation }) => {
         password,
         name,
 
-        gender: "male",
+        // gender: "male",
         role: "admin",
       });
       if (data.status >= 400) {

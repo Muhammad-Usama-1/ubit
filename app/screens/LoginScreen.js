@@ -57,6 +57,20 @@ const LoginScreen = ({ navigation }) => {
       console.log("ERROR", error);
     }
   };
+  const handleloginGoogle = async () => {
+    console.log("clicked..");
+    try {
+      const data = await apiClient.get("auth/google");
+      if (data.status >= 400) {
+        alert(data.data);
+        return;
+      }
+      console.log(data);
+      // alert("Login Success");
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
   return (
     <Screen>
       <ImageBackground
@@ -120,6 +134,7 @@ const LoginScreen = ({ navigation }) => {
             iconColor={color.dark}
             size={50}
             name={"google"}
+            onPress={handleloginGoogle}
           />
           <Icon
             backgroundColor={color.white}
@@ -137,6 +152,25 @@ const LoginScreen = ({ navigation }) => {
       </AppForm>
     </Screen>
   );
+};
+
+const signIn = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    console.log(userInfo);
+    // Pass the user's access token to your backend API for verification and further processing
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      console.log("Sign in cancelled");
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      console.log("Sign in is already in progress");
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      console.log("Play services are not available");
+    } else {
+      console.log("Error occurred while signing in: ", error);
+    }
+  }
 };
 
 export default LoginScreen;
