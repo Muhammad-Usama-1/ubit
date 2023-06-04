@@ -1,14 +1,19 @@
 ## TODO
 
-select component
+~~select component~~
+
+~~Reset password verify screen~~
+
+~~Reset password screen~~
+
 Resend now button of OTP,
+appform in applyjob screen
 bootom tabs.
 authContext setup.
 navigation between jobs
 
 ## FIXED
 
-Reset password verify screen
 Reset password screen
 
 ## URGENT BUG
