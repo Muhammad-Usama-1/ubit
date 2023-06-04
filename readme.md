@@ -1,5 +1,6 @@
 ## TODO
 
+select component
 Resend now button of OTP,
 bootom tabs.
 authContext setup.
