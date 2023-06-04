@@ -9,6 +9,7 @@ import * as DocumentPicker from "expo-document-picker";
 import AppButton from "../components/AppButton";
 import AppHeading from "../components/AppHeading";
 import { useRoute } from "@react-navigation/native";
+import AppDscribFeild from "../components/forms/AppDscribFeild";
 
 // import im from "../assets/jobBoard.png
 const ApplyToJobScreen = ({ navigation }) => {
@@ -85,6 +86,11 @@ const ApplyToJobScreen = ({ navigation }) => {
             style={styles.textInput}
             textAlignVertical="top" // add this prop
           />
+          {/* <AppDscribFeild
+            name="description"
+            style={styles.textInput}
+            placeholder="Enter your cover letter here..."
+          /> */}
         </View>
 
         <AppButton
