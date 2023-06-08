@@ -32,12 +32,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import CreateJobScreen from "./app/screens/CreateJobScreen";
+import EditModal from "./app/screens/Modal";
+import PersonalDetailsEditScreen from "./app/screens/PersonalDetailsEditScreen";
 export default function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  // const [showSplash, setShowSplash] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setShowSplash(false), 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setShowSplash(false), 3000);
+  // }, []);
 
   // return showSplash ? (
   //   <SplashScreen />
@@ -56,7 +58,16 @@ export default function App() {
     // <NavigationContainer theme={navigationTheme}>
     //   <AppNavigator />
     // </NavigationContainer>
-    <CreateJobScreen />
+    // <Screen>
+    //   <EditModal title={"Personal Details"}>
+    //     <AppText>Hello</AppText>
+    //   </EditModal>
+    //   {/* <EditModal /> */}
+    //   {/* <EditModal /> */}
+    // </Screen>
+    <PersonalDetailsEditScreen />
+
+    // <CreateJobScreen />
   );
 }
 
