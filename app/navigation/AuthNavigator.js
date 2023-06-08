@@ -7,6 +7,7 @@ import ForgotPasswdScreen from "../screens/ForgotPasswdScreen";
 import ResetVerityOTPScreen from "../screens/ResetVerityOTPScreen";
 import ResetPasswdScreen from "../screens/ResetPasswdScreen";
 import VerifyEmailScreen from "../screens/VerifyEmailScreen";
+import UserProfileScreen from "../screens/UserProfileScreen";
 
 // import RegisterScreen from "../screens/RegisterScreen";
 // import SignInScreen from "../screens/SignInScreen";
@@ -20,11 +21,11 @@ const AuthNavigator = () => {
 
   return (
     <Stack.Navigator>
-      {1 == 2 ? (
+      {1 == 1 ? (
         <Stack.Screen
           options={{ headerShown: false }}
           name="Profile"
-          component={JobListingScreen}
+          component={UserProfileScreen}
         />
       ) : (
         <>
