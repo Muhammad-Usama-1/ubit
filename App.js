@@ -55,9 +55,9 @@ export default function App() {
     // <JobListingScreen />
     // <LoginScreen />
     // <KeyboardAvoidingComponent />
-    // <NavigationContainer theme={navigationTheme}>
-    //   <AppNavigator />
-    // </NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator />
+    </NavigationContainer>
     // <Screen>
     //   <EditModal title={"Personal Details"}>
     //     <AppText>Hello</AppText>
@@ -65,7 +65,7 @@ export default function App() {
     //   {/* <EditModal /> */}
     //   {/* <EditModal /> */}
     // </Screen>
-    <PersonalDetailsEditScreen />
+    // <PersonalDetailsEditScreen />
 
     // <CreateJobScreen />
   );
