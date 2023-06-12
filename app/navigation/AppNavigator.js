@@ -12,6 +12,7 @@ import AuthNavigator from "./AuthNavigator";
 import ApplyToJobScreen from "../screens/ApplyToJobScreen";
 import JobListingScreen from "../screens/JobListingScreen";
 import FeedNavigator from "./FeedNavigator";
+import MessageScreen from "../screens/MessageScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,11 +33,11 @@ export default function AppNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="offer" size={size} color={color} />
+            <MaterialCommunityIcons name="message" size={size} color={color} />
           ),
         }}
-        name="Offer"
-        component={JobListingScreen}
+        name="Messages"
+        component={MessageScreen}
       />
       {/* 
       {authContext.user && (
