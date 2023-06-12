@@ -9,8 +9,8 @@ import AppText from "../components/AppText";
 import { Margin } from "../config/styles";
 import AppHeading from "../components/AppHeading";
 
-const ApplySuccess = () => {
-  //   const navigation = useNavigation();
+const ApplySuccess = ({ navigation }) => {
+  // const navigation = useNavigation();
 
   return (
     <Screen style={styles.container}>
@@ -26,8 +26,17 @@ const ApplySuccess = () => {
       <AppText style={[styles.youveSuccessfullyApplied]}>
         You have successfully applied to Systems Limited CyberSecurity role.
       </AppText>
-      <AppButton bgcolor="blue" colorText="white" title={"Go Back to Home"} />
-      <AppButton colorText="blue" title={"Browse Jobs"} />
+      <AppButton
+        // onPress={() => navigation.navigate("home")}
+        bgcolor="blue"
+        colorText="white"
+        title={"Go Back to Home"}
+      />
+      <AppButton
+        onPress={() => navigation.navigate("availableJobs")}
+        colorText="blue"
+        title={"Browse Jobs"}
+      />
     </Screen>
   );
 };
