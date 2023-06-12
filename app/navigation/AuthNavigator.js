@@ -8,6 +8,7 @@ import ResetVerityOTPScreen from "../screens/ResetVerityOTPScreen";
 import ResetPasswdScreen from "../screens/ResetPasswdScreen";
 import VerifyEmailScreen from "../screens/VerifyEmailScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
+import PersonalDetailsEditScreen from "../screens/PersonalDetailsEditScreen";
 
 // import RegisterScreen from "../screens/RegisterScreen";
 // import SignInScreen from "../screens/SignInScreen";
@@ -22,11 +23,18 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator>
       {1 == 1 ? (
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Profile"
-          component={UserProfileScreen}
-        />
+        <>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Profile"
+            component={UserProfileScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ProfileEdit"
+            component={PersonalDetailsEditScreen}
+          />
+        </>
       ) : (
         <>
           <Stack.Screen
