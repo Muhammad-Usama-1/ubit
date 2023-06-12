@@ -13,10 +13,16 @@ import AppText from "../components/AppText";
 import { FontSize } from "../config/styles";
 // import PDFExample from "../components/PDFViewer";
 
-const UserProfileScreen = () => {
+const UserProfileScreen = ({navigation}) => {
   return (
     <Screen style={styles.container}>
       {/* <PDFExample /> */}
+      <AppText
+        onPress={() => navigation.navigate("ProfileEdit") }
+        style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
+      >
+        Edit
+      </AppText>
       <View style={styles.profileContainer}>
         <View style={styles.photoContainer}>
           <Image
