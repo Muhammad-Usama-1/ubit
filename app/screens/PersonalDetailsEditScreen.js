@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import Screen from "../components/Screen";
 import EditModal from "./Modal";
@@ -8,21 +8,46 @@ import AppFormInput from "../components/forms/AppFormInput";
 import FormSubmit from "../components/forms/FormSubmit";
 import AppButton from "../components/AppButton";
 import { color } from "../config/colors";
+import * as DocumentPicker from "expo-document-picker";
+import { Field } from "formik";
+import PdfUpload from "../components/forms/PdfUpload";
 
 const PersonalDetailsEditScreen = () => {
+  const handlePdfPick = async (setFieldValue) => {
+    try {
+      const res = await DocumentPicker.getDocumentAsync({
+        type: "application/pdf",
+      });
+
+      if (res.type === "success") {
+        // setFieldValue('pdf', res);
+        console.log("success");
+      }
+    } catch (error) {
+      // Handle errors
+    }
+  };
   const [modalVisibleP, setModalVisibleP] = useState(false);
   const [modalVisibleE, setModalVisibleE] = useState(false);
+  const [modalVisibleED, setModalVisibleED] = useState(false);
+  const [modalVisibleR, setModalVisibleR] = useState(false);
 
-  const handleOpenModal = () => {
-    setModalVisibleP(true);
-  };
   const hadleProfileEdit = (values) => {
     console.log(values);
     setModalVisibleP(false);
   };
   const hadleEducationEdit = (values) => {
     console.log(values);
+    setModalVisibleED(false);
+  };
+
+  const hadleExperienceEdit = (values) => {
+    console.log(values);
     setModalVisibleE(false);
+  };
+  const handleResumeEdit = (values) => {
+    console.log(values);
+    setModalVisibleR(false);
   };
   return (
     <Screen style={styles.container}>
@@ -40,7 +65,7 @@ const PersonalDetailsEditScreen = () => {
           icon={"chevron-right"}
           bgcolor={"white"}
           title={"personal Details"}
-          onPress={handleOpenModal}
+          onPress={() => setModalVisibleP(true)}
         />
         <EditModal
           modalVisible={modalVisibleP}
@@ -58,7 +83,7 @@ const PersonalDetailsEditScreen = () => {
         initialValues={{
           name: "",
         }}
-        onSubmit={hadleEducationEdit}
+        onSubmit={hadleExperienceEdit}
         validationSchema={yup.object().shape({
           name: yup.string().label("Name"),
         })}
@@ -77,6 +102,65 @@ const PersonalDetailsEditScreen = () => {
           <AppFormInput name="name" placeholder="Your Name" />
         </EditModal>
       </AppForm>
+
+      {/* Education Update */}
+
+      <AppForm
+        initialValues={{
+          name: "",
+        }}
+        onSubmit={hadleEducationEdit}
+        validationSchema={yup.object().shape({
+          name: yup.string().label("Name"),
+        })}
+      >
+        <AppButton
+          icon={"chevron-right"}
+          bgcolor={"white"}
+          title={"Education"}
+          onPress={() => setModalVisibleED(true)}
+        />
+        <EditModal
+          modalVisible={modalVisibleED}
+          setModalVisible={setModalVisibleED}
+          handleSubmit={<FormSubmit title={"save and go back"} />}
+        >
+          <AppFormInput name="name" placeholder="Your Name" />
+        </EditModal>
+      </AppForm>
+
+      {/* Resume Update */}
+
+      <AppForm
+        initialValues={{
+          name: "",
+          pdf: "",
+        }}
+        onSubmit={handleResumeEdit}
+        validationSchema={yup.object().shape({
+          name: yup.string().label("Name"),
+        })}
+      >
+        <AppButton
+          icon={"chevron-right"}
+          bgcolor={"white"}
+          title={"Resume"}
+          onPress={() => setModalVisibleR(true)}
+        />
+        <EditModal
+          modalVisible={modalVisibleR}
+          setModalVisible={setModalVisibleR}
+          handleSubmit={<FormSubmit title={"save and go back"} />}
+        >
+          <AppFormInput name="name" placeholder="Your Name" />
+
+          <PdfUpload name="pdf" />
+
+          {/* <Field name="pdf" component={PdfUpload} label="Upload PDF" /> */}
+
+          {/* <AppFormInput name="name" placeholder="Your Name" /> */}
+        </EditModal>
+      </AppForm>
     </Screen>
   );
 };
@@ -85,7 +169,9 @@ export default PersonalDetailsEditScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.primary,
+    backgroundColor: color.danger,
     paddingHorizontal: 10,
+    justifyContent: "center",
+    flex: 1,
   },
 });
