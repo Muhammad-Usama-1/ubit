@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   JobListingScreenContainer: {
-    backgroundColor: color.danger,
+    backgroundColor: color.primary,
 
     paddingHorizontal: 5,
     flex: 1,
