@@ -34,7 +34,9 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import CreateJobScreen from "./app/screens/CreateJobScreen";
 import EditModal from "./app/screens/Modal";
 import PersonalDetailsEditScreen from "./app/screens/PersonalDetailsEditScreen";
+import AuthContext from "./app/auth/context";
 export default function App() {
+  const [user, setUser] = useState();
   // const [showSplash, setShowSplash] = useState(true);
 
   // useEffect(() => {
@@ -55,9 +57,11 @@ export default function App() {
     // <JobListingScreen />
     // <LoginScreen />
     // <KeyboardAvoidingComponent />
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthContext.Provider>
     // <Screen>
     //   <EditModal title={"Personal Details"}>
     //     <AppText>Hello</AppText>
