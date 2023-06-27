@@ -23,6 +23,7 @@ import FormSubmit from "../components/forms/FormSubmit";
 import apiClient from "../api/apiConfig";
 import { create } from "apisauce";
 import { useRoute } from "@react-navigation/native";
+import AuthContext from "../auth/context";
 
 // Create an API instance using the base URL
 // const api = create({
@@ -52,6 +53,9 @@ const LoginScreen = ({ navigation }) => {
         return;
       }
       console.log(data.status);
+      // SET CONTEXT FOR ALL THE APPLICATION
+      // AuthContext.setUser(user);
+
       alert("Login Success");
     } catch (error) {
       console.log("ERROR", error);
