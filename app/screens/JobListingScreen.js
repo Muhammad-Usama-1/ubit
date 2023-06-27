@@ -7,6 +7,10 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import jobCategory1Image from "../assets/jobCategory1.png";
+import jobCategory2Image from "../assets/jobCategory2.png";
+import jobCategory3Image from "../assets/jobCategory3.png";
+import jobCategory4Image from "../assets/jobCategory4.png";
 import React from "react";
 import AppHeading from "../components/AppHeading";
 import Screen from "../components/Screen";
@@ -30,23 +34,19 @@ const JobListingScreen = ({ navigation }) => {
   ];
   const categoryData = [
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory1Image,
       title: "Company",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory2Image,
       title: "Internship",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory3Image,
       title: "Full Time",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory4Image,
       title: "Part Time",
     },
   ];
@@ -72,19 +72,16 @@ const JobListingScreen = ({ navigation }) => {
         <AppText style={styles.TextCategory}>Browse By Category</AppText>
         <ScrollView style={styles.scrolStyle} horizontal>
           <View horizontal style={styles.categoryContainer}>
-            {[1, 2, 3, 4].map((i) => (
+            {categoryData.map((item, key) => (
               <View>
-                <View key={i} style={styles.mainBox}>
+                <View key={item.title} style={styles.mainBox}>
                   <View style={styles.whiteBox}>
                     <View style={styles.imgBox}>
-                      <Image
-                        style={styles.image}
-                        source={require("../assets/jobCategory1.png")}
-                      />
+                      <Image style={styles.image} source={item.imageUri} />
                     </View>
                   </View>
                 </View>
-                <AppText style={styles.categoryName}>Internship</AppText>
+                <AppText style={styles.categoryName}> {item.title} </AppText>
               </View>
             ))}
           </View>
