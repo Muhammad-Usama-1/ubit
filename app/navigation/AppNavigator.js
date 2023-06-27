@@ -13,6 +13,7 @@ import ApplyToJobScreen from "../screens/ApplyToJobScreen";
 import JobListingScreen from "../screens/JobListingScreen";
 import FeedNavigator from "./FeedNavigator";
 import MessageScreen from "../screens/MessageScreen";
+import CreateJobScreen from "../screens/CreateJobScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,27 @@ export default function AppNavigator() {
         name="Messages"
         component={MessageScreen}
       />
+      {1 == 1 && (
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="plus" size={size} color={color} />
+            ),
+          }}
+          name="createJob"
+          component={CreateJobScreen}
+        />
+      )}
+      {/* <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="message" size={size} color={color} />
+          ),
+        }}
+        name="createJob"
+        component={CreateJobScreen}
+      /> */}
+
       {/* 
       {authContext.user && (
         <Tab.Screen
