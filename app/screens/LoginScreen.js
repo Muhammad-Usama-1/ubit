@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import * as yup from "yup";
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
@@ -24,6 +24,7 @@ import apiClient from "../api/apiConfig";
 import { create } from "apisauce";
 import { useRoute } from "@react-navigation/native";
 import AuthContext from "../auth/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Create an API instance using the base URL
 // const api = create({
@@ -39,6 +40,8 @@ const validationSchema = yup.object().shape({
   // }),
 });
 const LoginScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(AuthContext);
+
   const route = useRoute();
   const handleLogin = async (values) => {
     const { email, password } = values;
@@ -52,9 +55,14 @@ const LoginScreen = ({ navigation }) => {
         alert(data.data);
         return;
       }
-      console.log(data.status);
+      console.log(data.data);
+      navigation.navigate("Home");
+      // const serializedObject = JSON.stringify(data.data);
+      // await AsyncStorage.setItem(key, serializedObject);
+
       // SET CONTEXT FOR ALL THE APPLICATION
-      // AuthContext.setUser(user);
+      setUser(data.data);
+      // console.log(AuthContext.user);
 
       alert("Login Success");
     } catch (error) {

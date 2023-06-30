@@ -9,6 +9,7 @@ import ResetPasswdScreen from "../screens/ResetPasswdScreen";
 import VerifyEmailScreen from "../screens/VerifyEmailScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import PersonalDetailsEditScreen from "../screens/PersonalDetailsEditScreen";
+import AuthContext from "../auth/context";
 
 // import RegisterScreen from "../screens/RegisterScreen";
 // import SignInScreen from "../screens/SignInScreen";
@@ -19,10 +20,11 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
   //   const authContext = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   return (
     <Stack.Navigator>
-      {1 == 1 ? (
+      {user ? (
         <>
           <Stack.Screen
             options={{ headerShown: false }}
