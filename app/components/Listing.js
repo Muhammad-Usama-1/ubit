@@ -54,13 +54,13 @@ const Listing = ({
         )}
       </TouchableOpacity>
       <View style={styles.JobTag}>
-        <AppTag> Full time</AppTag>
+        <AppTag> {item.jobType} </AppTag>
         <AppTag>Junior</AppTag>
       </View>
 
       <View style={styles.priceandLocDetails}>
         <AppText style={styles.whiteText}> $14000/year </AppText>
-        <AppText style={styles.whiteText}>Malir Karachi</AppText>
+        <AppText style={styles.whiteText}> {item.location} </AppText>
       </View>
     </View>
   );
