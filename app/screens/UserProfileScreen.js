@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import { color } from "../config/colors";
 import AppText from "../components/AppText";
 import { FontSize } from "../config/styles";
 // import PDFExample from "../components/PDFViewer";
 import { useRoute } from "@react-navigation/native";
+import AuthContext from "../auth/context";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
+  const { user, setUser } = useContext(AuthContext);
 
   return (
     <Screen style={styles.container}>
@@ -39,7 +41,7 @@ const UserProfileScreen = ({ navigation }) => {
         </View>
         {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
         <AppText style={styles.username}>
-          {route?.params?.user || "Anonoyomous User"}
+          {route?.params?.user || user.name || "Anonoyomous User"}
         </AppText>
 
         <AppText style={styles.userJobSeek}>UX Designer </AppText>
