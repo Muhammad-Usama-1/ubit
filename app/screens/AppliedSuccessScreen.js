@@ -7,8 +7,11 @@ import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
 import { Margin } from "../config/styles";
 import AppHeading from "../components/AppHeading";
+import { useRoute } from "@react-navigation/native";
 
 const ApplySuccess = ({ navigation }) => {
+  const { params } = useRoute();
+
   // const navigation = useNavigation();
 
   return (
@@ -23,7 +26,8 @@ const ApplySuccess = ({ navigation }) => {
       <AppHeading>Successful</AppHeading>
       <Text></Text>
       <AppText style={[styles.youveSuccessfullyApplied]}>
-        You have successfully applied to Systems Limited CyberSecurity role.
+        You have successfully applied to {params.data.name} at CyberSecurity
+        role.
       </AppText>
       <AppButton
         // onPress={() => navigation.navigate("home")}
