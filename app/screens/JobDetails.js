@@ -1,15 +1,27 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";
 import AppTag from "../components/AppTag";
 import AppButton from "../components/AppButton";
 import { useRoute } from "@react-navigation/native";
+import AuthContext from "../auth/context";
 
 const JobDetails = ({ navigation }) => {
+  const { user, setUser } = useContext(AuthContext);
+
   const { params } = useRoute();
   // console.log(params.data.title);
+
+  const handleNavigation = () => {
+    if (!user?.user) {
+      alert("Please Login to Apply to this Job");
+      navigation.navigate("Sign In");
+      return;
+    }
+    navigation.navigate("applyjob", { data: params.data });
+  };
   return (
     <Screen>
       <View style={styles.container}>
@@ -71,9 +83,7 @@ const JobDetails = ({ navigation }) => {
 
         <View style={styles.btnContainer}>
           <AppButton
-            onPress={() =>
-              navigation.navigate("applyjob", { data: params.data })
-            }
+            onPress={handleNavigation}
             title={"Apply Now"}
             bgcolor="blue"
             colorText={"white"}
