@@ -37,7 +37,8 @@ const ResetPasswdScreen = ({ navigation }) => {
       console.log(data.data);
       alert(data.data.message);
       // alert("OTP verify Success");
-      navigation.navigate("Reset");
+      // Update user state
+      navigation.navigate("Home");
     } catch (error) {
       console.log("ERROR", error);
     }
