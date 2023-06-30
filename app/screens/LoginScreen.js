@@ -57,8 +57,8 @@ const LoginScreen = ({ navigation }) => {
       }
       console.log(data.data);
       navigation.navigate("Home");
-      // const serializedObject = JSON.stringify(data.data);
-      // await AsyncStorage.setItem(key, serializedObject);
+      const serializedObject = JSON.stringify(data.data);
+      await AsyncStorage.setItem("user", serializedObject);
 
       // SET CONTEXT FOR ALL THE APPLICATION
       setUser(data.data);
