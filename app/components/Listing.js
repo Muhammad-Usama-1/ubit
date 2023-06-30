@@ -4,15 +4,31 @@ import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "../config/colors";
 import AppTag from "./AppTag";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 
-const Listing = ({ item, deleteAction }) => {
-  //   const navigation = useNavigation();
+const Listing = ({
+  item,
+  deleteAction,
+  onPress,
+  special,
+  navigation,
+  specialPress,
+}) => {
+  // const navigation = useNavigation();
   return (
     <View style={styles.jobCardContainer}>
+      {special && (
+        <View style={styles.allandSuggestContainer}>
+          <AppText style={styles.greyText}>suggested Jobs</AppText>
+          <AppText onPress={specialPress} style={styles.greyText}>
+            see all
+          </AppText>
+        </View>
+      )}
       <TouchableOpacity
-        //   onPress={() => navigation.navigate("ListingsDetails", { item })}
-        onPress={() => console.log("afsa")}
+        // onPress={() => navigation.navigate("JobsDetails", { item })}
+        onPress={onPress}
         style={styles.container}
       >
         <Image
@@ -22,9 +38,9 @@ const Listing = ({ item, deleteAction }) => {
           }}
         />
         <View style={styles.detailsContainer}>
-          <AppText style={styles.title}> {item.title} </AppText>
+          {/* <AppText style={styles.title}> {item.title} </AppText> */}
           <AppText style={{ color: color.dark, fontWeight: "bold" }}>
-            React Developer
+            {item.title}
           </AppText>
         </View>
 
@@ -53,6 +69,13 @@ const Listing = ({ item, deleteAction }) => {
 export default Listing;
 
 const styles = StyleSheet.create({
+  allandSuggestContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  greyText: {
+    color: color.medium,
+  },
   container: {
     flexDirection: "row",
     margin: 10,

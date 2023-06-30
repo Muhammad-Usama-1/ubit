@@ -6,7 +6,11 @@ import { color } from "../config/colors";
 import { Color, Padding, Border, FontFamily, FontSize } from "../GlobalStyles";
 import AppTag from "../components/AppTag";
 import AppButton from "../components/AppButton";
-const JobDetails = () => {
+import { useRoute } from "@react-navigation/native";
+
+const JobDetails = ({ navigation }) => {
+  const { params } = useRoute();
+  // console.log(params.data.title);
   return (
     <Screen>
       <View style={styles.container}>
@@ -17,7 +21,7 @@ const JobDetails = () => {
             source={require("../assets/group-24.png")}
           />
           <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
-            Cyber Security Expert
+            {params?.data?.title}
           </AppText>
           <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
             React Developer
@@ -67,7 +71,14 @@ const JobDetails = () => {
         </View>
 
         <View style={styles.btnContainer}>
-          <AppButton title={"Apply Now"} bgcolor="blue" colorText={"white"} />
+          <AppButton
+            onPress={() =>
+              navigation.navigate("applyjob", { data: params.data })
+            }
+            title={"Apply Now"}
+            bgcolor="blue"
+            colorText={"white"}
+          />
         </View>
       </View>
     </Screen>

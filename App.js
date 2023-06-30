@@ -29,12 +29,19 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 // import JobDetails from "./app/screens/JobDetail";
 // import JobDetails from "./app/screens/JobDetails";
 import { NavigationContainer } from "@react-navigation/native";
+import navigationTheme from "./app/navigation/navigationTheme";
+import AppNavigator from "./app/navigation/AppNavigator";
+import CreateJobScreen from "./app/screens/CreateJobScreen";
+import EditModal from "./app/screens/Modal";
+import PersonalDetailsEditScreen from "./app/screens/PersonalDetailsEditScreen";
+import AuthContext from "./app/auth/context";
 export default function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [user, setUser] = useState();
+  // const [showSplash, setShowSplash] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setShowSplash(false), 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setShowSplash(false), 3000);
+  // }, []);
 
   // return showSplash ? (
   //   <SplashScreen />
@@ -44,11 +51,27 @@ export default function App() {
   //   </>
   // );
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <AuthNavigator />
+    // </NavigationContainer>
+    // <JobListingScreen />
     // <LoginScreen />
     // <KeyboardAvoidingComponent />
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthContext.Provider>
+    // <Screen>
+    //   <EditModal title={"Personal Details"}>
+    //     <AppText>Hello</AppText>
+    //   </EditModal>
+    //   {/* <EditModal /> */}
+    //   {/* <EditModal /> */}
+    // </Screen>
+    // <PersonalDetailsEditScreen />
+
+    // <CreateJobScreen />
   );
 }
 

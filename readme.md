@@ -1,10 +1,20 @@
 ## TODO
 
-Resend now button of OTP
+~~select component~~
+
+~~Reset password verify screen~~
+
+~~Reset password screen~~
+
+Resend now button of OTP,
+appform in applyjob screen
+bootom tabs.
+authContext setup.
+navigation between jobs
+verify email of creating user otp digil error of validation
 
 ## FIXED
 
-Reset password verify screen
 Reset password screen
 
 ## URGENT BUG
@@ -14,6 +24,7 @@ Reset password screen
 ## FUTURE IMPROVEMENT
 
 1. Use global style
+1. Use useApi for calling to backend
 
 ## For Shahzman
 

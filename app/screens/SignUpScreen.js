@@ -57,15 +57,15 @@ const SignUpScreen = ({ navigation }) => {
         email,
         password,
         name,
-
-        // gender: "male",
-        role: "admin",
+        // gender: "",
+        role: values.selectedButton,
       });
       if (data.status >= 400) {
-        alert(data.data);
+        console.log(data.data);
+        alert(data.data.message);
         return;
       }
-      console.log(data.status);
+      // console.log(data);
       alert("will redirect to  OTP verify..");
       // navigation.navigate("Verify Email");
       navigation.navigate("Verify Email", { email });
@@ -75,7 +75,7 @@ const SignUpScreen = ({ navigation }) => {
   };
   return (
     // <KeyboardAvoidingView style={styles.container} behavior="padding">
-    <Screen>
+    <Screen style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <AppForm
           initialValues={{
@@ -170,6 +170,9 @@ const SignUpScreen = ({ navigation }) => {
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: color.light,
+  },
   containerBTN: {
     flexDirection: "row",
     justifyContent: "space-around",

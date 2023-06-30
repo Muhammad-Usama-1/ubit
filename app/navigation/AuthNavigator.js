@@ -7,6 +7,9 @@ import ForgotPasswdScreen from "../screens/ForgotPasswdScreen";
 import ResetVerityOTPScreen from "../screens/ResetVerityOTPScreen";
 import ResetPasswdScreen from "../screens/ResetPasswdScreen";
 import VerifyEmailScreen from "../screens/VerifyEmailScreen";
+import UserProfileScreen from "../screens/UserProfileScreen";
+import PersonalDetailsEditScreen from "../screens/PersonalDetailsEditScreen";
+import AuthContext from "../auth/context";
 
 // import RegisterScreen from "../screens/RegisterScreen";
 // import SignInScreen from "../screens/SignInScreen";
@@ -17,15 +20,23 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
   //   const authContext = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   return (
     <Stack.Navigator>
-      {1 == 2 ? (
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Profile"
-          component={JobListingScreen}
-        />
+      {user ? (
+        <>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Profile"
+            component={UserProfileScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="ProfileEdit"
+            component={PersonalDetailsEditScreen}
+          />
+        </>
       ) : (
         <>
           <Stack.Screen

@@ -19,18 +19,18 @@ const ButtonComponent = ({ name }) => {
         <TouchableOpacity
           style={[
             styles.button,
-            values.selectedButton === "button1" ? styles.activeButton : null,
+            values.selectedButton === "student" ? styles.activeButton : null,
           ]}
-          onPress={() => handleButtonPress("button1")}
+          onPress={() => handleButtonPress("student")}
         >
           <Text>Student</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.button,
-            values.selectedButton === "button2" ? styles.activeButton : null,
+            values.selectedButton === "employer" ? styles.activeButton : null,
           ]}
-          onPress={() => handleButtonPress("button2")}
+          onPress={() => handleButtonPress("employer")}
         >
           <Text>Employer</Text>
         </TouchableOpacity>

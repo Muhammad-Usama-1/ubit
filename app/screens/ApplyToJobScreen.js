@@ -8,10 +8,14 @@ import AppFormPdf from "../components/forms/AppFormPdf";
 import * as DocumentPicker from "expo-document-picker";
 import AppButton from "../components/AppButton";
 import AppHeading from "../components/AppHeading";
+import { useRoute } from "@react-navigation/native";
+import AppDscribFeild from "../components/forms/AppDscribFeild";
+
 // import im from "../assets/jobBoard.png
-const ApplyToJobScreen = () => {
+const ApplyToJobScreen = ({ navigation }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
+  const { params } = useRoute();
 
   const handleChooseFile = async () => {
     try {
@@ -39,7 +43,7 @@ const ApplyToJobScreen = () => {
               }}
             />
             <View>
-              <AppText>Cyber Security</AppText>
+              <AppText>{params.data.title}</AppText>
               <AppText>Systems Limited</AppText>
             </View>
           </View>
@@ -82,9 +86,19 @@ const ApplyToJobScreen = () => {
             style={styles.textInput}
             textAlignVertical="top" // add this prop
           />
+          {/* <AppDscribFeild
+            name="description"
+            style={styles.textInput}
+            placeholder="Enter your cover letter here..."
+          /> */}
         </View>
 
-        <AppButton title={"Apply"} colorText={"white"} bgcolor="blue" />
+        <AppButton
+          onPress={() => navigation.navigate("applysuccess")}
+          title={"Apply"}
+          colorText={"white"}
+          bgcolor="blue"
+        />
       </View>
     </Screen>
   );

@@ -7,6 +7,10 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
+import jobCategory1Image from "../assets/jobCategory1.png";
+import jobCategory2Image from "../assets/jobCategory2.png";
+import jobCategory3Image from "../assets/jobCategory3.png";
+import jobCategory4Image from "../assets/jobCategory4.png";
 import React from "react";
 import AppHeading from "../components/AppHeading";
 import Screen from "../components/Screen";
@@ -15,49 +19,41 @@ import { color } from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "../components/AppText";
 import { Ionicons } from "@expo/vector-icons";
+import { FontSize } from "../config/styles";
 // import { Ionicons } from '@expo/vector-icons';
 
-const JobListingScreen = () => {
+const JobListingScreen = ({ navigation }) => {
   const data = [
     {
       id: 3,
       title: "Cyber Security",
-      images:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
-    },
-    {
-      id: 4,
-      title: "Node JS Developer",
+      details: "afs",
       images:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
     },
   ];
   const categoryData = [
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory1Image,
       title: "Company",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory2Image,
       title: "Internship",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory3Image,
       title: "Full Time",
     },
     {
-      imagUri:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+      imageUri: jobCategory4Image,
       title: "Part Time",
     },
   ];
   return (
     <Screen>
       <View style={styles.JobListingScreenContainer}>
-        <AppHeading>Job Listing Screen</AppHeading>
+        {/* <AppHeading>Job Listing Screen</AppHeading> */}
 
         {/* JOB POSTER */}
 
@@ -73,22 +69,19 @@ const JobListingScreen = () => {
           />
         </View>
         {/* Category of Job type */}
-        <AppHeading>Browse By Category</AppHeading>
+        <AppText style={styles.TextCategory}>Browse By Category</AppText>
         <ScrollView style={styles.scrolStyle} horizontal>
           <View horizontal style={styles.categoryContainer}>
-            {[1, 2, 3, 4].map((i) => (
+            {categoryData.map((item, key) => (
               <View>
-                <View key={i} style={styles.mainBox}>
+                <View key={item.title} style={styles.mainBox}>
                   <View style={styles.whiteBox}>
                     <View style={styles.imgBox}>
-                      <Image
-                        style={styles.image}
-                        source={require("../assets/jobCategory1.png")}
-                      />
+                      <Image style={styles.image} source={item.imageUri} />
                     </View>
                   </View>
                 </View>
-                <AppText style={styles.categoryName}>Internship</AppText>
+                <AppText style={styles.categoryName}> {item.title} </AppText>
               </View>
             ))}
           </View>
@@ -98,7 +91,14 @@ const JobListingScreen = () => {
           style={styles.listOfJob}
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Listing item={item} />}
+          renderItem={({ item }) => (
+            <Listing
+              special={true}
+              specialPress={() => navigation.navigate("availableJobs")}
+              onPress={() => navigation.navigate("JobsDetails", { data: item })}
+              item={item}
+            />
+          )}
         />
       </View>
     </Screen>
@@ -108,10 +108,15 @@ const JobListingScreen = () => {
 export default JobListingScreen;
 
 const styles = StyleSheet.create({
+  TextCategory: {
+    fontSize: FontSize.size_lg,
+  },
   mainBox: {
     backgroundColor: "#FBD488",
-    height: 110,
-    width: 110,
+    // backgroundColor: color.danger,
+
+    height: 100,
+    width: 100,
     alignItems: "center",
     position: "relative",
     overflow: "visible",
@@ -119,10 +124,10 @@ const styles = StyleSheet.create({
   },
   whiteBox: {
     backgroundColor: color.white,
-    height: 120,
+    height: 100,
     position: "absolute",
     top: -20,
-    width: 90,
+    width: 80,
     borderRadius: 10,
     flex: 1,
     justifyContent: "center",
@@ -135,6 +140,7 @@ const styles = StyleSheet.create({
   listOfJob: {
     marginTop: 10,
     maxHeight: 200,
+    maxHeight: 180,
   },
 
   //
@@ -161,6 +167,8 @@ const styles = StyleSheet.create({
   },
   JobListingScreenContainer: {
     backgroundColor: color.primary,
+
+    paddingHorizontal: 5,
     flex: 1,
   },
   categoryContainer: {
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
   },
   categoryStyle: {
     margin: 4,
+    // backgroundColor: color.danger,
     // backgroundColor: color.darkPrimray,
   },
   categoryName: {
