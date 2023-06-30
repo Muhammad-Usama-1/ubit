@@ -1,5 +1,12 @@
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import React, { useContext, useState } from "react";
 import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
 import { color } from "../config/colors";
@@ -10,10 +17,15 @@ import AppButton from "../components/AppButton";
 import AppHeading from "../components/AppHeading";
 import { useRoute } from "@react-navigation/native";
 import AppDscribFeild from "../components/forms/AppDscribFeild";
+import AuthContext from "../auth/context";
+import apiClient from "../api/apiConfig";
 
 // import im from "../assets/jobBoard.png
 const ApplyToJobScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [name, setNamae] = useState(user?.user?.name);
+  const [portfolio, setPortfolio] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
   const { params } = useRoute();
 
@@ -28,78 +40,118 @@ const ApplyToJobScreen = ({ navigation }) => {
       console.log("Error picking file:", error);
     }
   };
+
+  const handleAppylyToJob = async () => {
+    if (!user.user) {
+      alert("Please Login to Apply to this Job");
+      navigation.navigate("Sign In");
+      return;
+    }
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `${user.token}`,
+    };
+    const formData = new FormData();
+    formData.append("resume", selectedFile.uri);
+    formData.append("name", name);
+    formData.append("portfolioLink", portfolio);
+    formData.append("coverLetter", coverLetter);
+    formData.append("jobId", params.data._id);
+
+    try {
+      const response = await apiClient.post("/job/application", formData, {
+        headers,
+      });
+      console.log(response.data);
+
+      navigation.navigate("applysuccess", { name: params.data.title });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Screen>
-      <View style={styles.container}>
-        <AppHeading style={styles.center}>Apply Now</AppHeading>
+      <ScrollView>
+        <View style={styles.container}>
+          <AppHeading style={styles.center}>Apply Now</AppHeading>
 
-        {/* JOB DETAILS */}
-        <View style={styles.jobDescribContainer}>
-          <View style={styles.posandcompany}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
-              }}
-            />
-            <View>
-              <AppText>{params.data.title}</AppText>
-              <AppText>Systems Limited</AppText>
+          {/* JOB DETAILS */}
+          <View style={styles.jobDescribContainer}>
+            <View style={styles.posandcompany}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
+                }}
+              />
+              <View>
+                <AppText>{params.data.title}</AppText>
+                <AppText>Systems Limited</AppText>
+              </View>
+            </View>
+            <View style={styles.salryandLoc}>
+              <AppText>$80000/year</AppText>
+              <AppText>$Karachi, sindh</AppText>
             </View>
           </View>
-          <View style={styles.salryandLoc}>
-            <AppText>$80000/year</AppText>
-            <AppText>$Karachi, sindh</AppText>
-          </View>
-        </View>
 
-        <View style={styles.inputContainer}>
-          <AppText style={styles.darkandBold}>FullName</AppText>
-          <AppTextInput
-            styles={styles.inputFeild}
-            placeholder="Enter your FUll Name"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <AppText style={styles.darkandBold}>Portfolio Link</AppText>
-          <AppTextInput
-            styles={styles.inputFeild}
-            placeholder="Enter your Portfolio"
-          />
-        </View>
-        <AppFormPdf handleResumeUpload={handleChooseFile} />
-
-        {selectedFile && (
-          <View>
-            <Text>Selected file:</Text>
-            <Text>Name: {selectedFile.name}</Text>
-            <Text>Size: {selectedFile.size} bytes</Text>
+          <View style={styles.inputContainer}>
+            <AppText style={styles.darkandBold}>FullName</AppText>
+            <AppTextInput
+              defaultValue={name}
+              onChangeText={(text) => {
+                setNamae(text);
+              }}
+              styles={styles.inputFeild}
+              placeholder="Enter your FUll Name"
+            />
           </View>
-        )}
-        {/* COVER LETTER */}
-        <View style={styles.coverContainer}>
-          <TextInput
-            placeholder="Enter your cover letter here..."
-            value={coverLetter}
-            onChangeText={setCoverLetter}
-            multiline={true}
-            style={styles.textInput}
-            textAlignVertical="top" // add this prop
-          />
-          {/* <AppDscribFeild
+          <View style={styles.inputContainer}>
+            <AppText style={styles.darkandBold}>Portfolio Link</AppText>
+            <AppTextInput
+              styles={styles.inputFeild}
+              placeholder="Enter your Portfolio"
+              value={portfolio}
+              onChangeText={(text) => {
+                setPortfolio(text);
+              }}
+            />
+          </View>
+          <AppFormPdf handleResumeUpload={handleChooseFile} />
+
+          {selectedFile && (
+            <View>
+              <Text>Selected file:</Text>
+              <Text>Name: {selectedFile.name}</Text>
+              {/* <Text>Size: {selectedFile.size} bytes</Text> */}
+            </View>
+          )}
+          {/* COVER LETTER */}
+          <View style={styles.coverContainer}>
+            <TextInput
+              placeholder="Enter your cover letter here..."
+              value={coverLetter}
+              onChangeText={setCoverLetter}
+              multiline={true}
+              style={styles.textInput}
+              textAlignVertical="top" // add this prop
+            />
+            {/* <AppDscribFeild
             name="description"
             style={styles.textInput}
             placeholder="Enter your cover letter here..."
           /> */}
-        </View>
+          </View>
 
-        <AppButton
-          onPress={() => navigation.navigate("applysuccess")}
-          title={"Apply"}
-          colorText={"white"}
-          bgcolor="blue"
-        />
-      </View>
+          <AppButton
+            // onPress={() => navigation.navigate("applysuccess")}
+            onPress={handleAppylyToJob}
+            title={"Apply"}
+            colorText={"white"}
+            bgcolor="blue"
+          />
+        </View>
+      </ScrollView>
     </Screen>
   );
 };
