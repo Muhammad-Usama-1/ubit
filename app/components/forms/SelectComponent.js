@@ -30,7 +30,7 @@ const SelectComponent = ({ name, items, style }) => {
           console.log(selectedItem, index);
           handleValueChange(selectedItem);
         }}
-        defaultButtonText={"Select country"}
+        defaultButtonText={"Select category"}
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected
           // if data array is an array of objects then return selectedItem.property to render after item is selected
