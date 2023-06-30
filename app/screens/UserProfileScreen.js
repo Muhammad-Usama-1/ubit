@@ -12,13 +12,16 @@ import { color } from "../config/colors";
 import AppText from "../components/AppText";
 import { FontSize } from "../config/styles";
 // import PDFExample from "../components/PDFViewer";
+import { useRoute } from "@react-navigation/native";
 
-const UserProfileScreen = ({navigation}) => {
+const UserProfileScreen = ({ navigation }) => {
+  const route = useRoute();
+
   return (
     <Screen style={styles.container}>
       {/* <PDFExample /> */}
       <AppText
-        onPress={() => navigation.navigate("ProfileEdit") }
+        onPress={() => navigation.navigate("ProfileEdit")}
         style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
       >
         Edit
@@ -34,7 +37,11 @@ const UserProfileScreen = ({navigation}) => {
             // source={require("../assets/images/jobscreen-titleBG.png")}
           />
         </View>
-        <AppText style={styles.username}>Iqra Aziz Remani</AppText>
+        {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
+        <AppText style={styles.username}>
+          {route?.params?.user || "Anonoyomous User"}
+        </AppText>
+
         <AppText style={styles.userJobSeek}>UX Designer </AppText>
 
         <TouchableOpacity
