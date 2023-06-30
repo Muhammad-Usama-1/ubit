@@ -1,4 +1,11 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
 import * as yup from "yup";
@@ -12,6 +19,7 @@ import AppText from "../components/AppText";
 import AppDscribFeild from "../components/forms/AppDscribFeild";
 import FormSubmit from "../components/forms/FormSubmit";
 import ImageInput from "../components/forms/ImageInput";
+import apiClient from "../api/apiConfig";
 
 const validationSchema = yup.object().shape({
   role: yup.string().required().label("Role"),
@@ -19,6 +27,8 @@ const validationSchema = yup.object().shape({
   type: yup.string().required("Type is required"),
   description: yup.string("Job Description "),
   location: yup.string().required().label("Location"),
+  image: yup.string().label("Please select at least one image ").required(),
+
   // website: yup.string().url(),
   // createdOn: yup.date().default(function () {
   //   return new Date();
@@ -27,11 +37,32 @@ const validationSchema = yup.object().shape({
 
 const options = ["Internship", "Full Time", "Half Time"];
 const CreateJobScreen = () => {
-  const handlePostJob = (values) => {
+  const handlePostJob = async (values) => {
     console.log(values);
+    const formData = new FormData();
+    formData.append("title", values.role);
+    formData.append("location", values.location);
+    formData.append("jobType", values.type);
+    formData.append("img", {
+      uri: values.image,
+      name: "image.jpg", // Set a filename for the image
+      type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
+    try {
+      const response = await apiClient.post("job/posting", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("submitteddddddd");
+
+      console.log(response.data);
+    } catch (error) {
+      console.log("ERROR", error);
+    }
   };
   return (
-    <Screen style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
         <Image
           style={styles.loginBackgroundImg}
@@ -84,7 +115,7 @@ const CreateJobScreen = () => {
 
         {/* <Field name="type" component={SelectComponent} items={options} /> */}
       </AppForm>
-    </Screen>
+    </ScrollView>
   );
 };
 
