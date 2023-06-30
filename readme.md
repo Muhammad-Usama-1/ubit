@@ -11,6 +11,7 @@ appform in applyjob screen
 bootom tabs.
 authContext setup.
 navigation between jobs
+verify email of creating user otp digil error of validation
 
 ## FIXED
 
