@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 // import { useNavigation } from "@react-navigation/native";
-import { Padding, Border, FontSize, Color, FontFamily } from "../GlobalStyles";
 import Screen from "../components/Screen";
 import { color } from "../config/colors";
 import AppButton from "../components/AppButton";
