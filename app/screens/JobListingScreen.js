@@ -11,7 +11,7 @@ import jobCategory1Image from "../assets/jobCategory1.png";
 import jobCategory2Image from "../assets/jobCategory2.png";
 import jobCategory3Image from "../assets/jobCategory3.png";
 import jobCategory4Image from "../assets/jobCategory4.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppHeading from "../components/AppHeading";
 import Screen from "../components/Screen";
 import Listing from "../components/Listing";
@@ -20,18 +20,41 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "../components/AppText";
 import { Ionicons } from "@expo/vector-icons";
 import { FontSize } from "../config/styles";
+import apiClient from "../api/apiConfig";
 // import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from "@react-navigation/native";
 
 const JobListingScreen = ({ navigation }) => {
-  const data = [
-    {
-      id: 3,
-      title: "Cyber Security",
-      details: "afs",
-      images:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    try {
+      const response = await apiClient.get("job/getPosts");
+
+      // console.log(response.data[0]);
+      setData([response.data[0]]);
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+
+      return () => {
+        // Cleanup function
+        // If needed, you can perform any cleanup here
+      };
+    }, [])
+  );
+  // const dataOld = [
+  //   {
+  //     id: 3,
+  //     title: "Cyber Security",
+  //     details: "afs",
+  //     images:
+  //       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+  //   },
+  // ];
   const categoryData = [
     {
       imageUri: jobCategory1Image,
@@ -70,6 +93,8 @@ const JobListingScreen = ({ navigation }) => {
         </View>
         {/* Category of Job type */}
         <AppText style={styles.TextCategory}>Browse By Category</AppText>
+
+        {/* SECTION CATEGORY */}
         <ScrollView style={styles.scrolStyle} horizontal>
           <View horizontal style={styles.categoryContainer}>
             {categoryData.map((item, key) => (
