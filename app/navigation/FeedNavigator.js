@@ -24,7 +24,7 @@ const FeedNavigator = () => (
     <Stack.Screen name="applysuccess" component={ApplySuccess} />
 
     <Stack.Screen
-      options={{ headerShown: true }}
+      options={{ headerShown: false }}
       name="availableJobs"
       component={AvailableJobScreen}
     />
