@@ -49,7 +49,7 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   const handleSignUp = async (values) => {
-    console.log(values);
+    console.log("clickedd...");
     const { email, password, name } = values;
     // console.log(values);
     try {
@@ -57,15 +57,15 @@ const SignUpScreen = ({ navigation }) => {
         email,
         password,
         name,
-
-        gender: "male",
+        // gender: "",
         role: "admin",
       });
       if (data.status >= 400) {
-        alert(data.data);
+        console.log(data.data);
+        alert(data.data.message);
         return;
       }
-      console.log(data.status);
+      // console.log(data);
       alert("will redirect to  OTP verify..");
       // navigation.navigate("Verify Email");
       navigation.navigate("Verify Email", { email });

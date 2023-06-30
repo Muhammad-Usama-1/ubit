@@ -1,30 +1,83 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";
 import { FontSize } from "../config/styles";
+import AppButton from "../components/AppButton";
+import { useNavigation } from "@react-navigation/native";
 
-const StudentListingScreen = () => {
+const ProfileCard = ({ item }) => {
+  const navigation = useNavigation();
+
+  return (
+    <View style={styles.profileCard}>
+      <AppText style={styles.titleProfile}> {item.name} </AppText>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.imagecenter}
+          source={require("../assets/mosh.jpg")}
+        />
+        <AppText style={styles.jobTitle}> {item.job} </AppText>
+      </View>
+
+      <View style={styles.profileCardBottom}>
+        <AppText
+          // studentProfile
+          onPress={() =>
+            navigation.navigate("studentProfile", { user: item.name })
+          }
+          style={styles.textTag}
+        >
+          See Profile
+        </AppText>
+        <AppText
+          onPress={() => navigation.navigate("Messages")}
+          style={styles.textTag}
+        >
+          Message
+        </AppText>
+      </View>
+    </View>
+  );
+};
+const students = [
+  {
+    name: "test1",
+    id: 1,
+    job: "Developer 1",
+  },
+  {
+    name: "test2",
+    id: 2,
+    job: "Developer 2",
+  },
+  {
+    name: "test3",
+    id: 3,
+    job: "Developer 3",
+  },
+];
+const StudentListingScreen = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <AppText>Student Listing</AppText>
       {/* PROFILE CCARD */}
-      <View style={styles.profileCard}>
-        <AppText style={styles.titleProfile}>Muhammad Usama</AppText>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.imagecenter}
-            source={require("../assets/mosh.jpg")}
-          />
-          <AppText style={styles.jobTitle}>UX Designer</AppText>
-        </View>
+      {/* {[1, 2, 3, 4, 5, 6].map((item, key) => (
+        <ProfileCard key={key} item={item} />
+      ))} */}
 
-        <View style={styles.profileCardBottom}>
-          <AppText style={styles.textTag}>See Profile</AppText>
-          <AppText style={styles.textTag}>Message</AppText>
-        </View>
-      </View>
+      <FlatList
+        // style={styles.listOfJob}
+        data={students}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ProfileCard
+            // onPress={() => navigation.navigate("JobsDetails", { data: item })}
+            item={item}
+          />
+        )}
+      />
     </Screen>
   );
 };
