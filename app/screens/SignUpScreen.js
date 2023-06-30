@@ -49,7 +49,7 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   const handleSignUp = async (values) => {
-    console.log("clickedd...");
+    console.log(values);
     const { email, password, name } = values;
     // console.log(values);
     try {
@@ -58,7 +58,7 @@ const SignUpScreen = ({ navigation }) => {
         password,
         name,
         // gender: "",
-        role: "admin",
+        role: values.selectedButton,
       });
       if (data.status >= 400) {
         console.log(data.data);
@@ -75,7 +75,7 @@ const SignUpScreen = ({ navigation }) => {
   };
   return (
     // <KeyboardAvoidingView style={styles.container} behavior="padding">
-    <Screen>
+    <Screen style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <AppForm
           initialValues={{
@@ -170,6 +170,9 @@ const SignUpScreen = ({ navigation }) => {
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: color.light,
+  },
   containerBTN: {
     flexDirection: "row",
     justifyContent: "space-around",
