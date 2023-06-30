@@ -3,7 +3,6 @@ import React from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";
-import { Color, Padding, Border, FontFamily, FontSize } from "../GlobalStyles";
 import AppTag from "../components/AppTag";
 import AppButton from "../components/AppButton";
 import { useRoute } from "@react-navigation/native";
