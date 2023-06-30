@@ -14,6 +14,7 @@ import JobListingScreen from "../screens/JobListingScreen";
 import FeedNavigator from "./FeedNavigator";
 import MessageScreen from "../screens/MessageScreen";
 import CreateJobScreen from "../screens/CreateJobScreen";
+import EmpFeedNavigator from "./EmpFeedNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ export default function AppNavigator() {
           ),
         }}
         name="Home"
-        component={FeedNavigator}
+        component={1 == 4 ? FeedNavigator : EmpFeedNavigator}
       />
       <Tab.Screen
         options={{
