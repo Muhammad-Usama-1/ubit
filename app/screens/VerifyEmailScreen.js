@@ -15,7 +15,7 @@ import apiClient from "../api/apiConfig";
 
 const validationSchema = yup.object().shape({
   // email: yup.string().email().required().label("Email"),
-  otp: yup.string().label("OTP"),
+  otp: yup.number().required().min(4).label("OTP"),
 });
 
 const VerifyEmailScreen = ({ navigation }) => {
@@ -25,13 +25,15 @@ const VerifyEmailScreen = ({ navigation }) => {
 
   const handleverifyOTP = async (values) => {
     console.log(values.otp);
-    if (values.otp.length < 6) {
-      alert("OTP must be length 6 ");
+    if (values.otp.length < 4) {
+      alert("OTP must be length 4 ");
+      return;
     }
     try {
       const data = await apiClient.post("users/verifyOtp", {
         userotp: values.otp,
       });
+      console.log(data.data);
       if (data.status >= 400) {
         alert(data.data);
         return;
