@@ -35,13 +35,38 @@ import CreateJobScreen from "./app/screens/CreateJobScreen";
 import EditModal from "./app/screens/Modal";
 import PersonalDetailsEditScreen from "./app/screens/PersonalDetailsEditScreen";
 import AuthContext from "./app/auth/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function App() {
   const [user, setUser] = useState();
   // const [showSplash, setShowSplash] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => setShowSplash(false), 3000);
-  // }, []);
+  const removeData = async (key) => {
+    try {
+      await AsyncStorage.removeItem("user");
+      console.log("Data removed successfully.");
+    } catch (error) {
+      console.log("Error removing data:", error);
+    }
+  };
+  const getData = async (key) => {
+    try {
+      const serializedObject = await AsyncStorage.getItem("user");
+      if (serializedObject !== null) {
+        const object = JSON.parse(serializedObject);
+        console.log("Retrieved object:", object);
+        setUser(object.user);
+      } else {
+        console.log("Object not found.");
+      }
+    } catch (error) {
+      console.log("Error retrieving object:", error);
+    }
+  };
+  useEffect(() => {
+    // setTimeout(() => setShowSplash(false), 3000);
+    // getData();
+    removeData();
+  }, []);
 
   // return showSplash ? (
   //   <SplashScreen />
