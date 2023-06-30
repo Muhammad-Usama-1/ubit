@@ -15,23 +15,45 @@ import FeedNavigator from "./FeedNavigator";
 import MessageScreen from "../screens/MessageScreen";
 import CreateJobScreen from "../screens/CreateJobScreen";
 import EmpFeedNavigator from "./EmpFeedNavigator";
+import AuthContext from "../auth/context";
 
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
-  //   const authContext = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen
+      {user?.user?.role == "employer" ? (
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" size={size} color={color} />
+            ),
+          }}
+          name="Home"
+          component={EmpFeedNavigator}
+        />
+      ) : (
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" size={size} color={color} />
+            ),
+          }}
+          name="Home"
+          component={FeedNavigator}
+        />
+      )}
+      {/* <Tab.Screen
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
         }}
         name="Home"
-        component={1 == 4 ? FeedNavigator : EmpFeedNavigator}
-      />
+        component={EmpFeedNavigator}
+      /> */}
       <Tab.Screen
         options={{
           tabBarIcon: ({ color, size }) => (
