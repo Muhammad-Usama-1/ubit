@@ -24,7 +24,8 @@ export default function AppNavigator() {
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      {user?.user?.role == "employer" ? (
+      {/* {user?.user?.role == "employer" ? ( */}
+      {1 === 1 ? (
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (

@@ -26,7 +26,7 @@ const ApplySuccess = ({ navigation }) => {
       <AppHeading>Successful</AppHeading>
       <Text></Text>
       <AppText style={[styles.youveSuccessfullyApplied]}>
-        You have successfully applied to {params.data.name} at CyberSecurity
+        You have successfully applied to {params?.data?.name} at CyberSecurity
         role.
       </AppText>
       <AppButton
