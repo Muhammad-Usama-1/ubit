@@ -51,17 +51,20 @@ const LoginScreen = ({ navigation }) => {
         email,
         password,
       });
+      console.log(data.data);
+
       if (data.status >= 400) {
         alert(data.data);
         return;
       }
-      console.log(data.data);
+      // console.log(data.data);
+      // const serializedObject = JSON.stringify(data.data);
+      // await AsyncStorage.setItem("user", serializedObject);
+      setUser(data.data);
+      // if()
       navigation.navigate("Home");
-      const serializedObject = JSON.stringify(data.data);
-      await AsyncStorage.setItem("user", serializedObject);
 
       // SET CONTEXT FOR ALL THE APPLICATION
-      setUser(data.data);
       // console.log(AuthContext.user);
 
       alert("Login Success");

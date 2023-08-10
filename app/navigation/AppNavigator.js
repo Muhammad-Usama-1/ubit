@@ -21,50 +21,20 @@ const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
   const { user, setUser } = useContext(AuthContext);
+  // console.log("user in app navigator", user?.role);
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      {/* {user?.user?.role == "employer" ? ( */}
-      {1 === 1 ? (
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
-            ),
-          }}
-          name="Home"
-          component={EmpFeedNavigator}
-        />
-      ) : (
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
-            ),
-          }}
-          name="Home"
-          component={FeedNavigator}
-        />
-      )}
-      {/* <Tab.Screen
+      <Tab.Screen
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
         }}
         name="Home"
-        component={EmpFeedNavigator}
-      /> */}
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="message" size={size} color={color} />
-          ),
-        }}
-        name="Messages"
-        component={MessageScreen}
+        component={FeedNavigator}
       />
-      {1 == 1 && (
+      {user?.user?.role == "employer" && (
         <Tab.Screen
           options={{
             tabBarIcon: ({ color, size }) => (
@@ -75,6 +45,16 @@ export default function AppNavigator() {
           component={CreateJobScreen}
         />
       )}
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="message" size={size} color={color} />
+          ),
+        }}
+        name="Messages"
+        component={MessageScreen}
+      />
+
       {/* <Tab.Screen
         options={{
           tabBarIcon: ({ color, size }) => (
