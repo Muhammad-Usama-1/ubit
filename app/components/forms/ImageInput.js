@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "../../config/colors";
 import ErrorMsg from "./ErrorMsg";
 
-const ImageInput = ({ name }) => {
+const ImageInput = ({ name, height }) => {
   const { errors, touched, setFieldValue, setFieldTouched, values } =
     useFormikContext();
   const imageUri = values[name];
@@ -30,7 +30,13 @@ const ImageInput = ({ name }) => {
 
   return (
     <>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          height ? { height: height, width: height } : "",
+        ]}
+        // style={styles.container}
+      >
         {imageUri ? (
           <>
             <Image style={styles.image} source={{ uri: imageUri }} />

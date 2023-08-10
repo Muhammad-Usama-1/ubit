@@ -11,6 +11,8 @@ import { color } from "../config/colors";
 import * as DocumentPicker from "expo-document-picker";
 import { Field } from "formik";
 import PdfUpload from "../components/forms/PdfUpload";
+import ImageInput from "../components/forms/ImageInput";
+import AppText from "../components/AppText";
 
 const PersonalDetailsEditScreen = () => {
   const handlePdfPick = async (setFieldValue) => {
@@ -59,6 +61,9 @@ const PersonalDetailsEditScreen = () => {
         onSubmit={hadleProfileEdit}
         validationSchema={yup.object().shape({
           name: yup.string().label("Name"),
+          skill: yup.string().label("Skill"),
+          // picture: yup.string().label("Skill"),
+          image: yup.string().label(" select picture "),
         })}
       >
         <AppButton
@@ -70,10 +75,17 @@ const PersonalDetailsEditScreen = () => {
         <EditModal
           modalVisible={modalVisibleP}
           setModalVisible={setModalVisibleP}
-          handleSubmit={<FormSubmit title={"save and go back"} />}
+          handleSubmit={
+            <FormSubmit bgcolor={"white"} title={"save and go back"} />
+          }
           title={"personal Details"}
         >
           <AppFormInput name="name" placeholder="Your Name" />
+          <AppFormInput name="skills" placeholder="Your Skills" />
+          <AppText>Profile Picture</AppText>
+          <View style={styles.profileupload}>
+            <ImageInput height={"100%"} name="image" />
+          </View>
         </EditModal>
       </AppForm>
 
@@ -173,5 +185,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "center",
     flex: 1,
+  },
+  profileupload: {
+    // backgroundColor: "#000",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 });
