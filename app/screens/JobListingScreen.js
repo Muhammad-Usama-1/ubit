@@ -30,8 +30,11 @@ const JobListingScreen = ({ navigation }) => {
     try {
       const response = await apiClient.get("job/getPosts");
 
-      // console.log(response.data[0]);
-      setData([response.data[0]]);
+      console.log(response.data);
+      // Set Jobs Array if it is greater to 0
+      if (response.data.length > 0) {
+        setData([response.data[0]]);
+      }
     } catch (error) {
       console.log("ERROR", error);
     }
@@ -115,7 +118,7 @@ const JobListingScreen = ({ navigation }) => {
         <FlatList
           style={styles.listOfJob}
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
           renderItem={({ item }) => (
             <Listing
               special={true}
