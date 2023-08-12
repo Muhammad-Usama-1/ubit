@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Screen from "../components/Screen";
 import EditModal from "./Modal";
 import * as yup from "yup";
@@ -13,8 +13,12 @@ import { Field } from "formik";
 import PdfUpload from "../components/forms/PdfUpload";
 import ImageInput from "../components/forms/ImageInput";
 import AppText from "../components/AppText";
+import apiClient from "../api/apiConfig";
+import AuthContext from "../auth/context";
 
 const PersonalDetailsEditScreen = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   const handlePdfPick = async (setFieldValue) => {
     try {
       const res = await DocumentPicker.getDocumentAsync({
@@ -47,9 +51,43 @@ const PersonalDetailsEditScreen = () => {
     console.log(values);
     setModalVisibleE(false);
   };
-  const handleResumeEdit = (values) => {
-    console.log(values);
+  const handleResumeEdit = async (values) => {
+    // console.log(values);
     setModalVisibleR(false);
+    console.log(user.token);
+    apiClient.setHeader("Authorization", `${user.token}`);
+    apiClient.setHeader(
+      "Content-Type",
+      "multipart/form-data; boundary=<calculated when request is sent>"
+    );
+
+    // const headers = {
+    //   "Content-Type": "multipart/form-data",
+    //   Authorization: `${user.token}`,
+    // };
+    const formData = new FormData();
+    formData.append("resume", values.pdf);
+    console.log(values);
+    const headers = {
+      "Content-Type":
+        "multipart/form-data; boundary=<calculated when request is sent>",
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post("/users/resumeDetails", formData, {
+        headers,
+      });
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
+    // Logic for Editing Resume update
   };
   return (
     <Screen style={styles.container}>
@@ -84,7 +122,7 @@ const PersonalDetailsEditScreen = () => {
           <AppFormInput name="skills" placeholder="Your Skills" />
           <AppText>Profile Picture</AppText>
           <View style={styles.profileupload}>
-            <ImageInput height={"100%"} name="image" />
+            <ImageInput name="image" />
           </View>
         </EditModal>
       </AppForm>
@@ -150,7 +188,7 @@ const PersonalDetailsEditScreen = () => {
         }}
         onSubmit={handleResumeEdit}
         validationSchema={yup.object().shape({
-          name: yup.string().label("Name"),
+          // name: yup.string().label("Name"),
         })}
       >
         <AppButton
@@ -164,7 +202,7 @@ const PersonalDetailsEditScreen = () => {
           setModalVisible={setModalVisibleR}
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
-          <AppFormInput name="name" placeholder="Your Name" />
+          {/* <AppFormInput name="name" placeholder="Your Name" /> */}
 
           <PdfUpload name="pdf" />
 

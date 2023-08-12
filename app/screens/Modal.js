@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { color } from "../config/colors";
 import AppButton from "../components/AppButton";
+import GoBackButton from "../components/GoBackButton";
 
 const EditModal = ({
   children,
@@ -38,6 +39,7 @@ const EditModal = ({
     // <View style={styles.container}>
     <Modal visible={modalVisible} transparent={true} animationType="slide">
       <View style={styles.modalContainer}>
+        <GoBackButton handleCloseModal={handleCloseModal} />
         <View style={styles.modalContent}>
           {children}
           <TouchableOpacity

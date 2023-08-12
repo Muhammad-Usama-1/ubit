@@ -21,7 +21,7 @@ const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
   // console.log("TOKEN-->", user.token);
-  console.log("User from state-->", user?.user?.personalDetails[0].picture);
+  // console.log("User from state-->", user?.user?.personalDetails[0].picture);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -80,7 +80,8 @@ const UserProfileScreen = ({ navigation }) => {
             // }}
 
             source={{
-              uri: user?.user?.personalDetails[0].picture,
+              // uri: user?.user?.personalDetails[0]?.picture,
+              uri: user?.user?.personalDetails?.[0]?.picture,
               uri: "http://192.168.100.5:4000/uploads/picture-1691821874082.jpg",
             }}
 
