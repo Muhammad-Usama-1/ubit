@@ -273,7 +273,7 @@ export default PersonalDetailsEditScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.danger,
+    backgroundColor: color.primary,
     paddingHorizontal: 10,
     justifyContent: "center",
     flex: 1,
