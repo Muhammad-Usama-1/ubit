@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, ScrollView } from "react-native";
 import { useFormikContext } from "formik";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -7,10 +7,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "../../config/colors";
 import ErrorMsg from "./ErrorMsg";
 
-const ImageInput = ({ name, height }) => {
+const MultipleImageInput = ({ name, height }) => {
   const { errors, touched, setFieldValue, setFieldTouched, values } =
     useFormikContext();
-  const imageUri = values[name];
+  const imageUris = values[name] || [];
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -19,62 +19,56 @@ const ImageInput = ({ name, height }) => {
     });
 
     if (!result.cancelled) {
-      setFieldValue(name, result.uri);
+      const updatedImageUris = [...imageUris, result.uri];
+      setFieldValue(name, updatedImageUris);
     }
   };
 
-  const handleDelete = () => {
-    setFieldValue(name, null);
+  const handleDelete = (index) => {
+    const updatedImageUris = imageUris.filter((_, i) => i !== index);
+    setFieldValue(name, updatedImageUris);
     setFieldTouched(name, false);
   };
 
   return (
-    <>
-      <View
-        style={[
-          styles.container,
-          height ? { height: height, width: height } : "",
-        ]}
-        // style={styles.container}
-      >
-        {imageUri ? (
-          <>
-            <Image style={styles.image} source={{ uri: imageUri }} />
+    <ScrollView horizontal>
+      <View style={styles.container}>
+        {imageUris.map((uri, index) => (
+          <View key={index} style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri }} />
             <View style={styles.deleteButton}>
               <MaterialCommunityIcons
                 name="close"
                 size={20}
                 color={color.white}
-                onPress={handleDelete}
+                onPress={() => handleDelete(index)}
               />
             </View>
-          </>
-        ) : (
-          <MaterialCommunityIcons
-            name="camera"
-            size={25}
-            color={color.black}
-            onPress={pickImage}
-          />
-        )}
+          </View>
+        ))}
+        <MaterialCommunityIcons
+          name="camera"
+          size={25}
+          color={color.black}
+          onPress={pickImage}
+        />
       </View>
       <ErrorMsg error={errors[name]} visible={touched[name]} />
-    </>
+    </ScrollView>
   );
 };
 
-export default ImageInput;
+export default MultipleImageInput;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    padding: 20,
-    borderRadius: 20,
-    backgroundColor: color.white,
-    width: 70,
-    height: 70,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    marginVertical: 10,
+  },
+  imageContainer: {
+    position: "relative",
+    marginRight: 10,
   },
   image: {
     height: 70,
