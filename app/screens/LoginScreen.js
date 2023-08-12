@@ -61,6 +61,7 @@ const LoginScreen = ({ navigation }) => {
       // const serializedObject = JSON.stringify(data.data);
       // await AsyncStorage.setItem("user", serializedObject);
       setUser(data.data);
+      console.log("DATA After login..", data.data);
       // if()
       navigation.navigate("Home");
 
