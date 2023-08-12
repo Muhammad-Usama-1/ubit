@@ -101,34 +101,35 @@ const PersonalDetailsEditScreen = () => {
     setModalVisibleE(false);
   };
   const handleResumeEdit = async (values) => {
-    // console.log(values);
-    setModalVisibleR(false);
-    // console.log(user.token);
-    const formData = new FormData();
-    formData.append("resume", {
-      uri: values.pdf,
-      name: "pdfsfasf.pdf", // Set a filename for the pdf
-      type: "application/pdf", // Set the MIME type for PDF
-      // type: "image/jpeg", // Set the image MIME type according to your requirements
-    });
+    console.log(values);
+    // setModalVisibleR(false);
+
+    // // console.log(user.token);
+    // const formData = new FormData();
+    // formData.append("resume", {
+    //   uri: values.pdf,
+    //   name: "pdfsfasf.pdf", // Set a filename for the pdf
+    //   type: "application/pdf", // Set the MIME type for PDF
+    //   // type: "image/jpeg", // Set the image MIME type according to your requirements
+    // });
     // console.log(values);
     const headers = {
       "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
-    try {
-      const response = await apiClient.post("/users/resumeDetails", formData, {
-        headers,
-      });
-      console.log("RESPONSE--->", response.data);
-      // setUser(...response.data);
-      // setUser((prevUser) => ({
-      //   ...prevUser, // Keep existing user properties
-      //   ...response.data, // Overwrite with new data from response
-      // }));
-    } catch (error) {
-      console.log("Error:", error);
-    }
+    // try {
+    //   const response = await apiClient.post("/users/resumeDetails", formData, {
+    //     headers,
+    //   });
+    //   console.log("RESPONSE--->", response.data);
+    //   // setUser(...response.data);
+    //   // setUser((prevUser) => ({
+    //   //   ...prevUser, // Keep existing user properties
+    //   //   ...response.data, // Overwrite with new data from response
+    //   // }));
+    // } catch (error) {
+    //   console.log("Error:", error);
+    // }
 
     // Logic for Editing Resume update
   };
@@ -232,12 +233,16 @@ const PersonalDetailsEditScreen = () => {
 
       <AppForm
         initialValues={{
-          name: "",
+          portfolio: "",
           pdf: "",
+          images: [], // Initialize with an empty array for images
         }}
         onSubmit={handleResumeEdit}
         validationSchema={yup.object().shape({
           // name: yup.string().label("Name"),
+          pdf: yup.string().required().label("PDF "),
+          portfolio: yup.string().required().label("portfolio"),
+          images: yup.array().min(1, "Please select at least one image "),
         })}
       >
         <AppButton
@@ -251,9 +256,9 @@ const PersonalDetailsEditScreen = () => {
           setModalVisible={setModalVisibleR}
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
-          {/* <AppFormInput name="name" placeholder="Your Name" /> */}
-
           <PdfUpload name="pdf" />
+          <AppFormInput name="portfolio" placeholder="Your Portfolio" />
+          <ImageInput name="images" />
 
           {/* <Field name="pdf" component={PdfUpload} label="Upload PDF" /> */}
 
