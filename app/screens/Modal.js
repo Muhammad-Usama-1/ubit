@@ -38,14 +38,16 @@ const EditModal = ({
     // <View style={styles.container}>
     <Modal visible={modalVisible} transparent={true} animationType="slide">
       <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>{children}</View>
-        <TouchableOpacity
-          // style={styles.closeButton}
-          onPress={handleCloseModal}
-        >
-          {/* <Text style={styles.closeButtonText}>Close</Text> */}
-          {handleSubmit}
-        </TouchableOpacity>
+        <View style={styles.modalContent}>
+          {children}
+          <TouchableOpacity
+            // style={styles.closeButton}
+            onPress={handleCloseModal}
+          >
+            {/* <Text style={styles.closeButtonText}>Close</Text> */}
+            {handleSubmit}
+          </TouchableOpacity>
+        </View>
       </View>
     </Modal>
     // </View>
