@@ -15,6 +15,7 @@ import ImageInput from "../components/forms/ImageInput";
 import AppText from "../components/AppText";
 import apiClient from "../api/apiConfig";
 import AuthContext from "../auth/context";
+import DatePickerField from "../components/forms/DatePickerField";
 
 const PersonalDetailsEditScreen = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -62,7 +63,7 @@ const PersonalDetailsEditScreen = () => {
           headers,
         }
       );
-      console.log("RESPONSE--->", response.data);
+      // console.log("RESPONSE--->", response.data);
       // setUser(...response.data);
       // setUser((prevUser) => ({
       //   ...prevUser, // Keep existing user properties
@@ -74,9 +75,25 @@ const PersonalDetailsEditScreen = () => {
 
     setModalVisibleP(false);
   };
-  const hadleEducationEdit = (values) => {
-    console.log(values);
+  const hadleEducationEdit = async (values) => {
+    console.log("Function is getting called..", values);
     setModalVisibleED(false);
+    const headers = {
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post("/users/education", {
+        headers,
+      });
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   const hadleExperienceEdit = (values) => {
@@ -183,11 +200,15 @@ const PersonalDetailsEditScreen = () => {
 
       <AppForm
         initialValues={{
-          name: "",
+          degree: "",
+          startdate: "",
+          enddate: "",
         }}
         onSubmit={hadleEducationEdit}
         validationSchema={yup.object().shape({
-          name: yup.string().label("Name"),
+          degree: yup.string().label("Degree"),
+          startdate: yup.string().label("Please select a string"),
+          enddate: yup.string().label("Please select a date"),
         })}
       >
         <AppButton
@@ -201,7 +222,9 @@ const PersonalDetailsEditScreen = () => {
           setModalVisible={setModalVisibleED}
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
-          <AppFormInput name="name" placeholder="Your Name" />
+          <AppFormInput name="degree" placeholder="Your Degree" />
+          <DatePickerField name="startdate" label="Start Date" />
+          <DatePickerField name="enddate" label="End Date" />
         </EditModal>
       </AppForm>
 
