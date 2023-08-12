@@ -38,8 +38,40 @@ const PersonalDetailsEditScreen = () => {
   const [modalVisibleED, setModalVisibleED] = useState(false);
   const [modalVisibleR, setModalVisibleR] = useState(false);
 
-  const hadleProfileEdit = (values) => {
+  const hadleProfileEdit = async (values) => {
     console.log(values);
+
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("skill", values.skill);
+    console.log(values.image);
+    formData.append("picture", {
+      uri: values.image,
+      name: "image.jpg", // Set a filename for the image
+      type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post(
+        "/users/personalDetails",
+        formData,
+        {
+          headers,
+        }
+      );
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
     setModalVisibleP(false);
   };
   const hadleEducationEdit = (values) => {
@@ -54,23 +86,17 @@ const PersonalDetailsEditScreen = () => {
   const handleResumeEdit = async (values) => {
     // console.log(values);
     setModalVisibleR(false);
-    console.log(user.token);
-    apiClient.setHeader("Authorization", `${user.token}`);
-    apiClient.setHeader(
-      "Content-Type",
-      "multipart/form-data; boundary=<calculated when request is sent>"
-    );
-
-    // const headers = {
-    //   "Content-Type": "multipart/form-data",
-    //   Authorization: `${user.token}`,
-    // };
+    // console.log(user.token);
     const formData = new FormData();
-    formData.append("resume", values.pdf);
-    console.log(values);
+    formData.append("resume", {
+      uri: values.pdf,
+      name: "pdfsfasf.pdf", // Set a filename for the pdf
+      type: "application/pdf", // Set the MIME type for PDF
+      // type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
+    // console.log(values);
     const headers = {
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
+      "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
     try {
@@ -119,7 +145,7 @@ const PersonalDetailsEditScreen = () => {
           title={"personal Details"}
         >
           <AppFormInput name="name" placeholder="Your Name" />
-          <AppFormInput name="skills" placeholder="Your Skills" />
+          <AppFormInput name="skill" placeholder="Your Skills" />
           <AppText>Profile Picture</AppText>
           <View style={styles.profileupload}>
             <ImageInput name="image" />

@@ -82,7 +82,9 @@ const UserProfileScreen = ({ navigation }) => {
             source={{
               // uri: user?.user?.personalDetails[0]?.picture,
               uri: user?.user?.personalDetails?.[0]?.picture,
-              uri: "http://192.168.100.5:4000/uploads/picture-1691821874082.jpg",
+              // uri:  `${ }` ,
+
+              // uri: "http://192.168.100.5:4000/uploads/picture-1691821874082.jpg",
             }}
 
             // source={require("../assets/images/jobscreen-titleBG.png")}
