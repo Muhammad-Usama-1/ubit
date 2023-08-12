@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Screen from "../components/Screen";
 import EditModal from "./Modal";
 import * as yup from "yup";
@@ -13,8 +13,12 @@ import { Field } from "formik";
 import PdfUpload from "../components/forms/PdfUpload";
 import ImageInput from "../components/forms/ImageInput";
 import AppText from "../components/AppText";
+import apiClient from "../api/apiConfig";
+import AuthContext from "../auth/context";
 
 const PersonalDetailsEditScreen = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   const handlePdfPick = async (setFieldValue) => {
     try {
       const res = await DocumentPicker.getDocumentAsync({
@@ -34,8 +38,40 @@ const PersonalDetailsEditScreen = () => {
   const [modalVisibleED, setModalVisibleED] = useState(false);
   const [modalVisibleR, setModalVisibleR] = useState(false);
 
-  const hadleProfileEdit = (values) => {
+  const hadleProfileEdit = async (values) => {
     console.log(values);
+
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("skill", values.skill);
+    console.log(values.image);
+    formData.append("picture", {
+      uri: values.image,
+      name: "image.jpg", // Set a filename for the image
+      type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post(
+        "/users/personalDetails",
+        formData,
+        {
+          headers,
+        }
+      );
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
     setModalVisibleP(false);
   };
   const hadleEducationEdit = (values) => {
@@ -47,9 +83,37 @@ const PersonalDetailsEditScreen = () => {
     console.log(values);
     setModalVisibleE(false);
   };
-  const handleResumeEdit = (values) => {
-    console.log(values);
+  const handleResumeEdit = async (values) => {
+    // console.log(values);
     setModalVisibleR(false);
+    // console.log(user.token);
+    const formData = new FormData();
+    formData.append("resume", {
+      uri: values.pdf,
+      name: "pdfsfasf.pdf", // Set a filename for the pdf
+      type: "application/pdf", // Set the MIME type for PDF
+      // type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
+    // console.log(values);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post("/users/resumeDetails", formData, {
+        headers,
+      });
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
+    // Logic for Editing Resume update
   };
   return (
     <Screen style={styles.container}>
@@ -81,10 +145,10 @@ const PersonalDetailsEditScreen = () => {
           title={"personal Details"}
         >
           <AppFormInput name="name" placeholder="Your Name" />
-          <AppFormInput name="skills" placeholder="Your Skills" />
+          <AppFormInput name="skill" placeholder="Your Skills" />
           <AppText>Profile Picture</AppText>
           <View style={styles.profileupload}>
-            <ImageInput height={"100%"} name="image" />
+            <ImageInput name="image" />
           </View>
         </EditModal>
       </AppForm>
@@ -150,7 +214,7 @@ const PersonalDetailsEditScreen = () => {
         }}
         onSubmit={handleResumeEdit}
         validationSchema={yup.object().shape({
-          name: yup.string().label("Name"),
+          // name: yup.string().label("Name"),
         })}
       >
         <AppButton
@@ -164,7 +228,7 @@ const PersonalDetailsEditScreen = () => {
           setModalVisible={setModalVisibleR}
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
-          <AppFormInput name="name" placeholder="Your Name" />
+          {/* <AppFormInput name="name" placeholder="Your Name" /> */}
 
           <PdfUpload name="pdf" />
 
