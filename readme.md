@@ -64,3 +64,11 @@ any password criteria ?
           </View>
         </View>
 ```
+
+''''JOb succes screen , go back button is not working
+
+---personal detail screen should not have multiple images upload
+
+pdf upload , prompt
+
+filteration....
