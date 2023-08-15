@@ -16,12 +16,23 @@ import { useRoute } from "@react-navigation/native";
 import AuthContext from "../auth/context";
 import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
+import AssetsConfig from "../api/AssetsConfig";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
+
   // console.log("TOKEN-->", user.token);
-  // console.log("User from state-->", user?.user?.personalDetails[0].picture);
+  // console.log(
+  //   "User from state -->",
+  //   user?.user?.personalDetails?.picture ?? null
+  // );
+  // console.log("User from state -->", user?.user?.personalDetails[0].picture);
+  // console.log(
+  //   "User from state -->",
+  //   user?.user?.personalDetails[0]?.picture ?? "Picture not available"
+  // );
+  // console.log("User from state -->", user?.user?.personalDetails);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -48,29 +59,34 @@ const UserProfileScreen = ({ navigation }) => {
       console.log("Error removing data:", error);
     }
   };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      getData();
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getData();
 
-      return () => {
-        // Cleanup function
-        // If needed, you can perform any cleanup here
-      };
-    }, [])
-  );
+  //     return () => {
+  //       // Cleanup function
+  //       // If needed, you can perform any cleanup here
+  //     };
+  //   }, [])
+  // );
   return (
     <Screen style={styles.container}>
       {/* <PDFExample /> */}
-      <AppText
-        onPress={() => navigation.navigate("ProfileEdit")}
-        style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
-      >
-        Edit
-      </AppText>
+
+      {/* Only display edit if it is a User */}
+      {user?.user?.role === "student" && (
+        <AppText
+          onPress={() => navigation.navigate("ProfileEdit")}
+          style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
+        >
+          Edit
+        </AppText>
+      )}
+
       <View style={styles.profileContainer}>
         <View style={styles.photoContainer}>
           <Image
@@ -81,10 +97,16 @@ const UserProfileScreen = ({ navigation }) => {
 
             source={{
               // uri: user?.user?.personalDetails[0]?.picture,
-              uri: user?.user?.personalDetails?.[0]?.picture,
-              // uri:  `${ }` ,
-
-              // uri: "http://192.168.100.5:4000/uploads/picture-1691821874082.jpg",
+              // uri: user?.user?.personalDetails?.[0]?.picture,
+              // uri: `${AssetsConfig}${user?.user?.personalDetails?.picture} `,
+              // uri: `${AssetsConfig}${
+              //   user?.user?.personalDetails[0]?.picture ??
+              //   "Picture not available"
+              // } `,
+              uri: `${AssetsConfig}${
+                user?.user?.personalDetails?.[0]?.picture ??
+                "Picture not available"
+              } `,
             }}
 
             // source={require("../assets/images/jobscreen-titleBG.png")}
@@ -95,57 +117,66 @@ const UserProfileScreen = ({ navigation }) => {
           {route?.params?.user || user.user.name || "Anonoyomous User"}
         </AppText>
 
-        <AppText style={styles.userJobSeek}>UX Designer </AppText>
+        <AppText style={styles.userJobSeek}>
+          {user?.user?.personalDetails?.[0]?.skill ?? "Employer"}
+        </AppText>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => console.log("redirect to message screen")}
-        >
-          <Text style={styles.buttonText}>Message</Text>
-        </TouchableOpacity>
-      </View>
-      {/* SECTION AI INTELIGENCE */}
-      <View style={styles.sectionAI}>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
+        {user.user?.personalDetails?.skill ? (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => console.log("redirect to message screen")}
+          >
+            <Text style={styles.buttonText}>Message</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
 
-      {/* SECTION EXPERIENCE */}
-      <AppText style={styles.username}>Experience</AppText>
-      <View style={styles.sectionWhiteBG}>
+      {user?.user?.role === "student" && (
         <View>
-          <AppText style={{ fontWeight: "bold" }}>UX Intern</AppText>
-          <AppText>Spotify</AppText>
-        </View>
-        <View>
-          <AppText>Dec 20 - Feb 21</AppText>
-        </View>
-      </View>
+          {/* SECTION AI INTELIGENCE */}
+          <View style={styles.sectionAI}>
+            {/* Box1 */}
+            <View style={styles.insigtAi}>
+              <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+              <AppText style={{ color: color.medium }}>Applied </AppText>
+            </View>
+            {/* Box1 */}
+            <View style={styles.insigtAi}>
+              <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+              <AppText style={{ color: color.medium }}>Applied </AppText>
+            </View>
+            {/* Box1 */}
+            <View style={styles.insigtAi}>
+              <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+              <AppText style={{ color: color.medium }}>Applied </AppText>
+            </View>
+          </View>
 
-      {/* SECTION EXPERIENCE */}
-      <AppText style={styles.username}>Education</AppText>
-      <View style={styles.sectionWhiteBG}>
-        <View>
-          <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
-          <AppText>UBIT</AppText>
+          {/* SECTION EXPERIENCE */}
+          <AppText style={styles.username}>Experience</AppText>
+          <View style={styles.sectionWhiteBG}>
+            <View>
+              <AppText style={{ fontWeight: "bold" }}>UX Intern</AppText>
+              <AppText>Spotify</AppText>
+            </View>
+            <View>
+              <AppText>Dec 20 - Feb 21</AppText>
+            </View>
+          </View>
+
+          {/* SECTION EXPERIENCE */}
+          <AppText style={styles.username}>Education</AppText>
+          <View style={styles.sectionWhiteBG}>
+            <View>
+              <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
+              <AppText>UBIT</AppText>
+            </View>
+            <View>
+              <AppText>Dec 20 - Feb 21</AppText>
+            </View>
+          </View>
         </View>
-        <View>
-          <AppText>Dec 20 - Feb 21</AppText>
-        </View>
-      </View>
+      )}
     </Screen>
   );
 };
