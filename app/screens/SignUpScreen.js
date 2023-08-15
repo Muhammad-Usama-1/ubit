@@ -61,8 +61,8 @@ const SignUpScreen = ({ navigation }) => {
         role: values.selectedButton,
       });
       if (data.status >= 400) {
-        console.log(data.data);
-        alert(data.data.message);
+        console.log(data.data.error);
+        alert(data.data.error);
         return;
       }
       // console.log(data);
@@ -76,93 +76,95 @@ const SignUpScreen = ({ navigation }) => {
   return (
     // <KeyboardAvoidingView style={styles.container} behavior="padding">
     <Screen style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <AppForm
-          initialValues={{
-            email: "mdusama225@gmail.com",
-            password: "pass1234",
-            selectedButton: "",
-          }}
-          onSubmit={handleSignUp}
-          validationSchema={validationSchema}
-        >
-          <ImageBackground
-            source={{
-              uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
+      <ScrollView>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <AppForm
+            initialValues={{
+              email: "mdusama225@gmail.com",
+              password: "pass1234",
+              selectedButton: "",
             }}
-            resizeMethod="resize"
-            style={styles.loginBackgroundImg}
-          ></ImageBackground>
-          <AppText style={styles.subHeading}>Sign up Now</AppText>
+            onSubmit={handleSignUp}
+            validationSchema={validationSchema}
+          >
+            <ImageBackground
+              source={{
+                uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
+              }}
+              resizeMethod="resize"
+              style={styles.loginBackgroundImg}
+            ></ImageBackground>
+            <AppText style={styles.subHeading}>Sign up Now</AppText>
 
-          <ButtonComponent name={"selectedButton"} />
+            <ButtonComponent name={"selectedButton"} />
 
-          {/* <AppTextInput></AppTextInput> */}
-          <View style={styles.inputContainer}>
-            <AppFormInput
-              name="name"
-              placeholder="Your Name"
-              // style={styles.inputFeild}
-            />
-            <AppFormInput
-              name="email"
-              placeholder="Your email address"
-              // style={styles.inputFeild}
-            />
+            {/* <AppTextInput></AppTextInput> */}
+            <View style={styles.inputContainer}>
+              <AppFormInput
+                name="name"
+                placeholder="Your Name"
+                // style={styles.inputFeild}
+              />
+              <AppFormInput
+                name="email"
+                placeholder="Your email address"
+                // style={styles.inputFeild}
+              />
 
-            <AppFormInput
-              name="password"
-              secureTextEntry
-              placeholder="Enter Password"
-              // style={styles.inputFeild}
-            />
-            {/* <AppButton
+              <AppFormInput
+                name="password"
+                secureTextEntry
+                placeholder="Enter Password"
+                // style={styles.inputFeild}
+              />
+              {/* <AppButton
             colorText={"white"}
             title={"Sign UP"}
             style={styles.loginBtn}
           ></AppButton> */}
 
-            {/* <Field type="hidden" name="selectedButton" /> */}
+              {/* <Field type="hidden" name="selectedButton" /> */}
 
-            <FormSubmit style={styles.loginBtn} title={"sign Up"} />
+              <FormSubmit style={styles.loginBtn} title={"sign Up"} />
 
-            <View style={styles.redirecttoSignUp}>
-              <AppText style={styles.text}>Already have an Account?</AppText>
-              <Text
-                // style={styles.signupText}
-                style={[defaultStyles.text, styles.signupText]}
-                onPress={() => navigation.navigate("Sign In")}
-              >
-                Login
-              </Text>
-              {/* <Button title="login" style={styles.signupText}></Button> */}
+              <View style={styles.redirecttoSignUp}>
+                <AppText style={styles.text}>Already have an Account?</AppText>
+                <Text
+                  // style={styles.signupText}
+                  style={[defaultStyles.text, styles.signupText]}
+                  onPress={() => navigation.navigate("Sign In")}
+                >
+                  Login
+                </Text>
+                {/* <Button title="login" style={styles.signupText}></Button> */}
+              </View>
+
+              <AppText style={styles.signinwithText}> Sign in with </AppText>
             </View>
 
-            <AppText style={styles.signinwithText}> Sign in with </AppText>
-          </View>
-
-          <View style={styles.signinOptions}>
-            <Icon
-              backgroundColor={color.white}
-              iconColor={color.dark}
-              size={50}
-              name={"google"}
-            />
-            <Icon
-              backgroundColor={color.white}
-              iconColor={color.dark}
-              size={50}
-              name={"facebook"}
-            />
-            <Icon
-              backgroundColor={color.white}
-              iconColor={color.dark}
-              size={50}
-              name={"apple"}
-            />
-          </View>
-        </AppForm>
-      </TouchableWithoutFeedback>
+            <View style={styles.signinOptions}>
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"google"}
+              />
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"facebook"}
+              />
+              <Icon
+                backgroundColor={color.white}
+                iconColor={color.dark}
+                size={50}
+                name={"apple"}
+              />
+            </View>
+          </AppForm>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </Screen>
   );
 };
