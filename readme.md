@@ -33,3 +33,34 @@ Consisetent error message in all API, error message in development to troublesho
 params details in postman
 
 any password criteria ?
+
+```txt
+
+ <View style={styles.descriptionContainer}>
+          <AppText>Description</AppText>
+          {/* ITEMS IN JOB DETAIALS */}
+          <View style={styles.listItem}>
+            <Text style={styles.bullet}>• </Text>
+            <Text style={styles.text}>
+              Master's degree in Design, Computer Science, Computer Interaction,
+              or a related field.
+            </Text>
+          </View>
+          {/* ITEMS IN JOB DETAIALS */}
+          <View style={styles.listItem}>
+            <Text style={styles.bullet}>• </Text>
+            <Text style={styles.text}>
+              Master's degree in Design, Computer Science, Computer Interaction,
+              or a related field.
+            </Text>
+          </View>
+          {/* ITEMS IN JOB DETAIALS */}
+          <View style={styles.listItem}>
+            <Text style={styles.bullet}>• </Text>
+            <Text style={styles.text}>
+              Master's degree in Design, Computer Science, Computer Interaction,
+              or a related field.
+            </Text>
+          </View>
+        </View>
+```
