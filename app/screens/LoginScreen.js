@@ -88,7 +88,7 @@ const LoginScreen = ({ navigation }) => {
     }
   };
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <ImageBackground
         source={{
           uri: "https://lh3.googleusercontent.com/p/AF1QipMUI75tW0RVu8ugg6aO2sHupScasjKDoevrgjBD=s680-w680-h510",
@@ -192,6 +192,9 @@ const signIn = async () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: color.light,
+  },
   redirecttoSignUp: {
     flexDirection: "row",
     justifyContent: "space-between",
