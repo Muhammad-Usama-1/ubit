@@ -40,7 +40,7 @@ const PersonalDetailsEditScreen = () => {
   const [modalVisibleR, setModalVisibleR] = useState(false);
 
   const hadleProfileEdit = async (values) => {
-    console.log(values);
+    console.log(user.token);
 
     const formData = new FormData();
     formData.append("name", values.name);
@@ -63,7 +63,7 @@ const PersonalDetailsEditScreen = () => {
           headers,
         }
       );
-      // console.log("RESPONSE--->", response.data);
+      console.log("RESPONSE--->", response.data);
       // setUser(...response.data);
       // setUser((prevUser) => ({
       //   ...prevUser, // Keep existing user properties
@@ -76,13 +76,13 @@ const PersonalDetailsEditScreen = () => {
     setModalVisibleP(false);
   };
   const hadleEducationEdit = async (values) => {
-    console.log("Function is getting called..", values);
+    // console.log("Function is getting called..", values);
     setModalVisibleED(false);
     const headers = {
       Authorization: `${user.token}`,
     };
     try {
-      const response = await apiClient.post("/users/education", {
+      const response = await apiClient.post("/users/education", values, {
         headers,
       });
       console.log("RESPONSE--->", response.data);
@@ -96,40 +96,57 @@ const PersonalDetailsEditScreen = () => {
     }
   };
 
-  const hadleExperienceEdit = (values) => {
+  const hadleExperienceEdit = async (values) => {
     console.log(values);
     setModalVisibleE(false);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      Authorization: `${user.token}`,
+    };
+    try {
+      const response = await apiClient.post("/users/experience", values, {
+        headers,
+      });
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
   const handleResumeEdit = async (values) => {
     console.log(values);
     // setModalVisibleR(false);
 
     // // console.log(user.token);
-    // const formData = new FormData();
-    // formData.append("resume", {
-    //   uri: values.pdf,
-    //   name: "pdfsfasf.pdf", // Set a filename for the pdf
-    //   type: "application/pdf", // Set the MIME type for PDF
-    //   // type: "image/jpeg", // Set the image MIME type according to your requirements
-    // });
+    const formData = new FormData();
+    formData.append("resume", {
+      uri: values.pdf,
+      name: "pdfsfasf.pdf", // Set a filename for the pdf
+      type: "application/pdf", // Set the MIME type for PDF
+      // type: "image/jpeg", // Set the image MIME type according to your requirements
+    });
     // console.log(values);
     const headers = {
       "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
-    // try {
-    //   const response = await apiClient.post("/users/resumeDetails", formData, {
-    //     headers,
-    //   });
-    //   console.log("RESPONSE--->", response.data);
-    //   // setUser(...response.data);
-    //   // setUser((prevUser) => ({
-    //   //   ...prevUser, // Keep existing user properties
-    //   //   ...response.data, // Overwrite with new data from response
-    //   // }));
-    // } catch (error) {
-    //   console.log("Error:", error);
-    // }
+    try {
+      const response = await apiClient.post("/users/resumeDetails", formData, {
+        headers,
+      });
+      console.log("RESPONSE--->", response.data);
+      // setUser(...response.data);
+      // setUser((prevUser) => ({
+      //   ...prevUser, // Keep existing user properties
+      //   ...response.data, // Overwrite with new data from response
+      // }));
+    } catch (error) {
+      console.log("Error:", error);
+    }
 
     // Logic for Editing Resume update
   };
@@ -171,15 +188,23 @@ const PersonalDetailsEditScreen = () => {
         </EditModal>
       </AppForm>
 
-      {/* --------------- */}
+      {/* ---Experience------------ */}
 
       <AppForm
         initialValues={{
-          name: "",
+          position: "",
+          company: "",
+
+          startdate: "",
+          enddate: "",
         }}
         onSubmit={hadleExperienceEdit}
         validationSchema={yup.object().shape({
-          name: yup.string().label("Name"),
+          position: yup.string().label("Position "),
+          company: yup.string().label("Company "),
+
+          startdate: yup.string().label("Please select a string"),
+          enddate: yup.string().label("Please select a date"),
         })}
       >
         <AppButton
@@ -193,7 +218,11 @@ const PersonalDetailsEditScreen = () => {
           setModalVisible={setModalVisibleE}
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
-          <AppFormInput name="name" placeholder="Your Name" />
+          <AppFormInput name="role" placeholder="Your Position" />
+          <AppFormInput name="company" placeholder="Your Company" />
+
+          <DatePickerField name="startdate" label="Start Date" />
+          <DatePickerField name="enddate" label="End Date" />
         </EditModal>
       </AppForm>
 
@@ -235,14 +264,17 @@ const PersonalDetailsEditScreen = () => {
         initialValues={{
           portfolio: "",
           pdf: "",
-          images: [], // Initialize with an empty array for images
+          prompt: "",
+          // images: [], // Initialize with an empty array for images
         }}
         onSubmit={handleResumeEdit}
         validationSchema={yup.object().shape({
           // name: yup.string().label("Name"),
           pdf: yup.string().required().label("PDF "),
+          prompt: yup.string().label("Prompt "),
+
           portfolio: yup.string().required().label("portfolio"),
-          images: yup.array().min(1, "Please select at least one image "),
+          // images: yup.array().min(1, "Please select at least one image "),
         })}
       >
         <AppButton
@@ -258,7 +290,9 @@ const PersonalDetailsEditScreen = () => {
         >
           <PdfUpload name="pdf" />
           <AppFormInput name="portfolio" placeholder="Your Portfolio" />
-          <ImageInput name="images" />
+          <AppFormInput name="portfolio" placeholder="Enter the Prompt" />
+
+          {/* <ImageInput name="images" /> */}
 
           {/* <Field name="pdf" component={PdfUpload} label="Upload PDF" /> */}
 
