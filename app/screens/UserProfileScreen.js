@@ -21,18 +21,7 @@ import AssetsConfig from "../api/AssetsConfig";
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
-
-  // console.log("TOKEN-->", user.token);
-  // console.log(
-  //   "User from state -->",
-  //   user?.user?.personalDetails?.picture ?? null
-  // );
-  // console.log("User from state -->", user?.user?.personalDetails[0].picture);
-  // console.log(
-  //   "User from state -->",
-  //   user?.user?.personalDetails[0]?.picture ?? "Picture not available"
-  // );
-  // console.log("User from state -->", user?.user?.personalDetails);
+  console.log(user.user.education);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -46,6 +35,8 @@ const UserProfileScreen = ({ navigation }) => {
   const getData = async (key) => {
     try {
       const response = await apiClient.get("/users/getSingleUser");
+      // const response = await apiClient.get("/users/getSingleUser");
+
       console.log("RESPONSE--->", response.data);
       // setUser(...response.data);
       setUser((prevUser) => ({
@@ -59,20 +50,20 @@ const UserProfileScreen = ({ navigation }) => {
       console.log("Error removing data:", error);
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getData();
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
 
-  //     return () => {
-  //       // Cleanup function
-  //       // If needed, you can perform any cleanup here
-  //     };
-  //   }, [])
-  // );
+      return () => {
+        // Cleanup function
+        // If needed, you can perform any cleanup here
+      };
+    }, [])
+  );
   return (
     <Screen style={styles.container}>
       {/* <PDFExample /> */}
@@ -96,13 +87,6 @@ const UserProfileScreen = ({ navigation }) => {
             // }}
 
             source={{
-              // uri: user?.user?.personalDetails[0]?.picture,
-              // uri: user?.user?.personalDetails?.[0]?.picture,
-              // uri: `${AssetsConfig}${user?.user?.personalDetails?.picture} `,
-              // uri: `${AssetsConfig}${
-              //   user?.user?.personalDetails[0]?.picture ??
-              //   "Picture not available"
-              // } `,
               uri: `${AssetsConfig}${
                 user?.user?.personalDetails?.[0]?.picture ??
                 "Picture not available"
@@ -154,27 +138,35 @@ const UserProfileScreen = ({ navigation }) => {
 
           {/* SECTION EXPERIENCE */}
           <AppText style={styles.username}>Experience</AppText>
-          <View style={styles.sectionWhiteBG}>
-            <View>
-              <AppText style={{ fontWeight: "bold" }}>UX Intern</AppText>
-              <AppText>Spotify</AppText>
+          {user?.user?.experience.map((el) => (
+            <View key={el._id} style={styles.sectionWhiteBG}>
+              <View>
+                <AppText style={{ fontWeight: "bold" }}>
+                  {" "}
+                  {el.position}{" "}
+                </AppText>
+                <AppText> {el.company} </AppText>
+              </View>
+              <View>
+                <AppText>Dec 20 - Feb 21</AppText>
+              </View>
             </View>
-            <View>
-              <AppText>Dec 20 - Feb 21</AppText>
-            </View>
-          </View>
+          ))}
 
           {/* SECTION EXPERIENCE */}
+
           <AppText style={styles.username}>Education</AppText>
-          <View style={styles.sectionWhiteBG}>
-            <View>
-              <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
-              <AppText>UBIT</AppText>
+          {user?.user?.education((el) => (
+            <View style={styles.sectionWhiteBG}>
+              <View>
+                <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
+                <AppText>UBIT</AppText>
+              </View>
+              <View>
+                <AppText>Dec 20 - Feb 21</AppText>
+              </View>
             </View>
-            <View>
-              <AppText>Dec 20 - Feb 21</AppText>
-            </View>
-          </View>
+          ))}
         </View>
       )}
     </Screen>
