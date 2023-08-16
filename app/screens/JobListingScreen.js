@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from "react-native";
 import jobCategory1Image from "../assets/jobCategory1.png";
@@ -66,16 +67,32 @@ const JobListingScreen = ({ navigation }) => {
     {
       imageUri: jobCategory2Image,
       title: "Internship",
+      apikey: "Internship",
     },
     {
       imageUri: jobCategory3Image,
       title: "Full Time",
+      apikey: "Fulltime",
     },
     {
       imageUri: jobCategory4Image,
       title: "Part Time",
+      apikey: "Halftime",
     },
   ];
+
+  const handleClickonJobCategory = async (data) => {
+    try {
+      const response = await apiClient.get(
+        `job/filtered-jobs?jobType=${data.apikey}`
+      );
+      console.log(response.data);
+      setData(response.data);
+      // navigation.navigate("availableJobs");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Screen>
       <View style={styles.JobListingScreenContainer}>
@@ -101,16 +118,21 @@ const JobListingScreen = ({ navigation }) => {
         <ScrollView style={styles.scrolStyle} horizontal>
           <View horizontal style={styles.categoryContainer}>
             {categoryData.map((item, key) => (
-              <View>
-                <View key={item.title} style={styles.mainBox}>
-                  <View style={styles.whiteBox}>
-                    <View style={styles.imgBox}>
-                      <Image style={styles.image} source={item.imageUri} />
+              <TouchableOpacity
+                onPress={() => handleClickonJobCategory(item)}
+                style={[styles.btnContainer]}
+              >
+                <View>
+                  <View key={item.title} style={styles.mainBox}>
+                    <View style={styles.whiteBox}>
+                      <View style={styles.imgBox}>
+                        <Image style={styles.image} source={item.imageUri} />
+                      </View>
                     </View>
                   </View>
+                  <AppText style={styles.categoryName}> {item.title} </AppText>
                 </View>
-                <AppText style={styles.categoryName}> {item.title} </AppText>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         </ScrollView>

@@ -1,6 +1,7 @@
 import {
   Button,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,12 +17,12 @@ import { useRoute } from "@react-navigation/native";
 import AuthContext from "../auth/context";
 import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
+import AssetsConfig from "../api/AssetsConfig";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
-  // console.log("TOKEN-->", user.token);
-  // console.log("User from state-->", user?.user?.personalDetails[0].picture);
+  console.log(user.user.resumeDetails);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -35,6 +36,8 @@ const UserProfileScreen = ({ navigation }) => {
   const getData = async (key) => {
     try {
       const response = await apiClient.get("/users/getSingleUser");
+      // const response = await apiClient.get("/users/getSingleUser");
+
       console.log("RESPONSE--->", response.data);
       // setUser(...response.data);
       setUser((prevUser) => ({
@@ -64,88 +67,127 @@ const UserProfileScreen = ({ navigation }) => {
   );
   return (
     <Screen style={styles.container}>
-      {/* <PDFExample /> */}
-      <AppText
-        onPress={() => navigation.navigate("ProfileEdit")}
-        style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
-      >
-        Edit
-      </AppText>
-      <View style={styles.profileContainer}>
-        <View style={styles.photoContainer}>
-          <Image
-            style={styles.userprofilephoto}
-            // source={{
-            //   uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-            // }}
+      <ScrollView>
+        {/* <PDFExample /> */}
 
-            source={{
-              // uri: user?.user?.personalDetails[0]?.picture,
-              uri: user?.user?.personalDetails?.[0]?.picture,
-              // uri:  `${ }` ,
+        {/* Only display edit if it is a User */}
+        {user?.user?.role === "student" && (
+          <AppText
+            onPress={() => navigation.navigate("ProfileEdit")}
+            style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
+          >
+            Edit
+          </AppText>
+        )}
 
-              // uri: "http://192.168.100.5:4000/uploads/picture-1691821874082.jpg",
-            }}
+        <View style={styles.profileContainer}>
+          <View style={styles.photoContainer}>
+            <Image
+              style={styles.userprofilephoto}
+              // source={{
+              //   uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+              // }}
 
-            // source={require("../assets/images/jobscreen-titleBG.png")}
-          />
-        </View>
-        {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
-        <AppText style={styles.username}>
-          {route?.params?.user || user.user.name || "Anonoyomous User"}
-        </AppText>
+              source={{
+                uri: `${AssetsConfig}${
+                  user?.user?.personalDetails?.[0]?.picture ??
+                  "Picture not available"
+                } `,
+              }}
 
-        <AppText style={styles.userJobSeek}>UX Designer </AppText>
+              // source={require("../assets/images/jobscreen-titleBG.png")}
+            />
+          </View>
+          {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
+          <AppText style={styles.username}>
+            {route?.params?.user || user.user.name || "Anonoyomous User"}
+          </AppText>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => console.log("redirect to message screen")}
-        >
-          <Text style={styles.buttonText}>Message</Text>
-        </TouchableOpacity>
-      </View>
-      {/* SECTION AI INTELIGENCE */}
-      <View style={styles.sectionAI}>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
-        {/* Box1 */}
-        <View style={styles.insigtAi}>
-          <AppText style={{ fontWeight: "bold" }}>27 </AppText>
-          <AppText style={{ color: color.medium }}>Applied </AppText>
-        </View>
-      </View>
+          <AppText style={styles.userJobSeek}>
+            {user?.user?.personalDetails?.[0]?.skill ?? "Employer"}
+          </AppText>
 
-      {/* SECTION EXPERIENCE */}
-      <AppText style={styles.username}>Experience</AppText>
-      <View style={styles.sectionWhiteBG}>
-        <View>
-          <AppText style={{ fontWeight: "bold" }}>UX Intern</AppText>
-          <AppText>Spotify</AppText>
+          {user.user?.personalDetails?.skill ? (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => console.log("redirect to message screen")}
+            >
+              <Text style={styles.buttonText}>Message</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
-        <View>
-          <AppText>Dec 20 - Feb 21</AppText>
-        </View>
-      </View>
 
-      {/* SECTION EXPERIENCE */}
-      <AppText style={styles.username}>Education</AppText>
-      <View style={styles.sectionWhiteBG}>
-        <View>
-          <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
-          <AppText>UBIT</AppText>
-        </View>
-        <View>
-          <AppText>Dec 20 - Feb 21</AppText>
-        </View>
-      </View>
+        {user?.user?.role === "student" && (
+          <View>
+            {/* SECTION AI INTELIGENCE */}
+            <View style={styles.sectionAI}>
+              {/* Box1 */}
+              <View style={styles.insigtAi}>
+                <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+                <AppText style={{ color: color.medium }}>Applied </AppText>
+              </View>
+              {/* Box1 */}
+              <View style={styles.insigtAi}>
+                <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+                <AppText style={{ color: color.medium }}>Applied </AppText>
+              </View>
+              {/* Box1 */}
+              <View style={styles.insigtAi}>
+                <AppText style={{ fontWeight: "bold" }}>27 </AppText>
+                <AppText style={{ color: color.medium }}>Applied </AppText>
+              </View>
+            </View>
+
+            {/* SECTION EXPERIENCE */}
+            <AppText style={styles.username}>Experience</AppText>
+            {user?.user?.experience?.map((el) => (
+              <View key={el._id} style={styles.sectionWhiteBG}>
+                <View>
+                  <AppText style={{ fontWeight: "bold" }}>
+                    {" "}
+                    {el.position}{" "}
+                  </AppText>
+                  <AppText> {el.company} </AppText>
+                </View>
+                <View>
+                  <AppText>Dec 20 - Feb 21</AppText>
+                </View>
+              </View>
+            ))}
+
+            {/* SECTION EXPERIENCE */}
+
+            <AppText style={styles.username}>Education</AppText>
+            {user?.user?.education?.map((el) => (
+              <View style={styles.sectionWhiteBG}>
+                <View>
+                  <AppText style={{ fontWeight: "bold" }}>
+                    {" "}
+                    {el.degree}{" "}
+                  </AppText>
+                  <AppText>UBIT</AppText>
+                </View>
+                <View>
+                  <AppText>Dec 20 - Feb 21</AppText>
+                </View>
+              </View>
+            ))}
+            {/* sedction Resume */}
+            {/* <AppText style={styles.username}>Education</AppText>
+            {user?.user?.resumeDetails?.map((el) => (
+              <View style={styles.sectionWhiteBG}>
+                <View>
+                  <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
+                  <AppText>UBIT</AppText>
+                </View>
+                <View>
+                  <AppText>Dec 20 - Feb 21</AppText>
+                </View>
+              </View>
+            ))} */}
+          </View>
+        )}
+      </ScrollView>
     </Screen>
   );
 };

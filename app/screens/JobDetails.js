@@ -12,7 +12,7 @@ const JobDetails = ({ navigation }) => {
   const { user, setUser } = useContext(AuthContext);
 
   const { params } = useRoute();
-  // console.log(params.data.title);
+  console.log(params.data);
 
   const handleNavigation = () => {
     if (!user?.user) {
@@ -34,50 +34,24 @@ const JobDetails = ({ navigation }) => {
           <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
             {params?.data?.title}
           </AppText>
-          <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
+          {/* <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
             React Developer
-          </AppText>
+          </AppText> */}
 
           <View style={styles.tagContainer}>
-            <AppTag>Full time</AppTag>
-            <AppTag>Junior</AppTag>
+            {/* params.data */}
+            {/* <AppTag>Full time</AppTag> */}
+            <AppTag>{params.data?.jobType}</AppTag>
+            {/* <AppTag>Junior</AppTag> */}
           </View>
           <View style={styles.salaryandLocContainer}>
             <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
               Malir Karachi
             </AppText>
-            <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
+            {/* <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
               $160,00/year{" "}
-            </AppText>
+            </AppText> */}
             {/* <Text  ></Text> */}
-          </View>
-        </View>
-
-        <View style={styles.descriptionContainer}>
-          <AppText>Description</AppText>
-          {/* ITEMS IN JOB DETAIALS */}
-          <View style={styles.listItem}>
-            <Text style={styles.bullet}>• </Text>
-            <Text style={styles.text}>
-              Master's degree in Design, Computer Science, Computer Interaction,
-              or a related field.
-            </Text>
-          </View>
-          {/* ITEMS IN JOB DETAIALS */}
-          <View style={styles.listItem}>
-            <Text style={styles.bullet}>• </Text>
-            <Text style={styles.text}>
-              Master's degree in Design, Computer Science, Computer Interaction,
-              or a related field.
-            </Text>
-          </View>
-          {/* ITEMS IN JOB DETAIALS */}
-          <View style={styles.listItem}>
-            <Text style={styles.bullet}>• </Text>
-            <Text style={styles.text}>
-              Master's degree in Design, Computer Science, Computer Interaction,
-              or a related field.
-            </Text>
           </View>
         </View>
 
