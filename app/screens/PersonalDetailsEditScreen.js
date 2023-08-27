@@ -123,9 +123,11 @@ const PersonalDetailsEditScreen = () => {
 
     // // console.log(user.token);
     const formData = new FormData();
+    formData.append("prompt", values.prompt);
+
     formData.append("resume", {
       uri: values.pdf,
-      name: "pdfsfasf.pdf", // Set a filename for the pdf
+      name: "resume.pdf", // Set a filename for the pdf
       type: "application/pdf", // Set the MIME type for PDF
       // type: "image/jpeg", // Set the image MIME type according to your requirements
     });
@@ -134,8 +136,9 @@ const PersonalDetailsEditScreen = () => {
       "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
+    console.log(formData);
     try {
-      const response = await apiClient.post("/users/resumeDetails", formData, {
+      const response = await apiClient.post("users/resumeAnalyzer", formData, {
         headers,
       });
       console.log("RESPONSE--->", response.data);
@@ -262,18 +265,18 @@ const PersonalDetailsEditScreen = () => {
 
       <AppForm
         initialValues={{
-          portfolio: "",
           pdf: "",
-          prompt: "",
+          prompt:
+            "we would appreciate your feedback on areas where this resume can be improved",
           // images: [], // Initialize with an empty array for images
         }}
         onSubmit={handleResumeEdit}
         validationSchema={yup.object().shape({
           // name: yup.string().label("Name"),
           pdf: yup.string().required().label("PDF "),
-          prompt: yup.string().label("Prompt "),
+          prompt: yup.string().required().label("Prompt "),
 
-          portfolio: yup.string().required().label("portfolio"),
+          // portfolio: yup.string().required().label("portfolio"),
           // images: yup.array().min(1, "Please select at least one image "),
         })}
       >
@@ -289,8 +292,8 @@ const PersonalDetailsEditScreen = () => {
           handleSubmit={<FormSubmit title={"save and go back"} />}
         >
           <PdfUpload name="pdf" />
-          <AppFormInput name="portfolio" placeholder="Your Portfolio" />
-          <AppFormInput name="portfolio" placeholder="Enter the Prompt" />
+          {/* <AppFormInput name="portfolio" placeholder="Your Portfolio" /> */}
+          <AppFormInput name="prompt" placeholder="Enter the Prompt" />
 
           {/* <ImageInput name="images" /> */}
 
