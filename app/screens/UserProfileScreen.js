@@ -74,7 +74,7 @@ const UserProfileScreen = ({ navigation }) => {
         {user?.user?.role === "student" && (
           <AppText
             onPress={() => navigation.navigate("ProfileEdit")}
-            style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
+            style={styles.editBtnprofile}
           >
             Edit
           </AppText>
@@ -104,7 +104,8 @@ const UserProfileScreen = ({ navigation }) => {
           </AppText>
 
           <AppText style={styles.userJobSeek}>
-            {user?.user?.personalDetails?.[0]?.skill ?? "Employer"}
+            {/* {user?.user?.personalDetails?.[0]?.skill ?? "Employer"} */}
+            {user?.user?.role ?? "Employer"}
           </AppText>
 
           {user.user?.personalDetails?.skill ? (
@@ -272,5 +273,12 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     marginBottom: 10,
     // mt,
+  },
+
+  editBtnprofile: {
+    textAlign: "right",
+    marginRight: 20,
+    fontWeight: "bold",
+    padding: 10,
   },
 });
