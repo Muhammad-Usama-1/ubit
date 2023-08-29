@@ -22,7 +22,7 @@ import AssetsConfig from "../api/AssetsConfig";
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
-  console.log(user.user.resumeDetails);
+  // console.log(user.user.resumeDetails);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -100,7 +100,7 @@ const UserProfileScreen = ({ navigation }) => {
           </View>
           {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
           <AppText style={styles.username}>
-            {route?.params?.user || user.user.name || "Anonoyomous User"}
+            {route?.params?.user || user.user?.name || "Anonoyomous User"}
           </AppText>
 
           <AppText style={styles.userJobSeek}>
