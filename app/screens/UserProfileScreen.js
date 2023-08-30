@@ -18,6 +18,7 @@ import AuthContext from "../auth/context";
 import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
 import AssetsConfig from "../api/AssetsConfig";
+import AppButton from "../components/AppButton";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
@@ -79,6 +80,7 @@ const UserProfileScreen = ({ navigation }) => {
             Edit
           </AppText>
         )}
+        <AppButton title={"Logout"} onPress={() => setUser(null)} />
 
         <View style={styles.profileContainer}>
           <View style={styles.photoContainer}>

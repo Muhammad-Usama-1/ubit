@@ -51,8 +51,8 @@ const JobDetails = ({ navigation }) => {
             {/* <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
               $160,00/year{" "}
             </AppText> */}
-            {/* <Text  ></Text> */}
           </View>
+          <Text>{params?.data?.description}</Text>
         </View>
 
         <View style={styles.btnContainer}>

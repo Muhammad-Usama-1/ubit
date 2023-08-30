@@ -61,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
         role: values.selectedButton,
       });
       if (data.status >= 400) {
-        console.log(data.data.error);
+        console.log(data.data);
         alert(data.data.error);
         return;
       }

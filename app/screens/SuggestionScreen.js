@@ -20,7 +20,7 @@ const SuggestionScreen = () => {
       setData(response.data.feedback);
       //   setData(Math.random());
 
-      // console.log(response.data.feedback[0]);
+      console.log(response.data);
     } catch (error) {
       console.log("ERROR", error);
     }

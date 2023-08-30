@@ -19,6 +19,7 @@ import { useRoute } from "@react-navigation/native";
 import AppDscribFeild from "../components/forms/AppDscribFeild";
 import AuthContext from "../auth/context";
 import apiClient from "../api/apiConfig";
+import AssetsConfig from "../api/AssetsConfig";
 
 // import im from "../assets/jobBoard.png
 const ApplyToJobScreen = ({ navigation }) => {
@@ -51,6 +52,7 @@ const ApplyToJobScreen = ({ navigation }) => {
       "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
+    // console.log("----->", user);
     const formData = new FormData();
     formData.append("resume", selectedFile.uri);
     formData.append("name", name);
@@ -83,6 +85,8 @@ const ApplyToJobScreen = ({ navigation }) => {
                 source={{
                   uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
                 }}
+
+                // source = {{}}
               />
               <View>
                 <AppText>{params.data.title}</AppText>

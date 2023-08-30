@@ -51,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
         email,
         password,
       });
-      console.log("--->", data.data.error);
+      // console.log("--->", data.data);
 
       if (data.status >= 400) {
         alert(data.data.error);

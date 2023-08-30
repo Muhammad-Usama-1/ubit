@@ -119,7 +119,7 @@ const PersonalDetailsEditScreen = () => {
   };
   const handleResumeEdit = async (values) => {
     console.log(values);
-    // setModalVisibleR(false);
+    setModalVisibleR(false);
 
     // // console.log(user.token);
     const formData = new FormData();
