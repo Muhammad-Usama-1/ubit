@@ -64,7 +64,7 @@ const ApplyToJobScreen = ({ navigation }) => {
       const response = await apiClient.post("/job/application", formData, {
         headers,
       });
-      console.log(response.data);
+      console.log("Apply jobs Data", response.data);
 
       navigation.navigate("applysuccess", { name: params.data.title });
     } catch (error) {
@@ -82,8 +82,11 @@ const ApplyToJobScreen = ({ navigation }) => {
             <View style={styles.posandcompany}>
               <Image
                 style={styles.image}
+                // source={{
+                //   uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
+                // }}
                 source={{
-                  uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
+                  uri: `${AssetsConfig}${params?.data?.img}`,
                 }}
 
                 // source = {{}}

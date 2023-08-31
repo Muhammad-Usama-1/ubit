@@ -45,7 +45,7 @@ const AvailableJobScreen = ({ navigation }) => {
     try {
       const response = await apiClient.get("job/getPosts");
 
-      // console.log(response.data[0]);
+      console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log("ERROR", error);
