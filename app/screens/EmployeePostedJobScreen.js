@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useContext, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -7,10 +7,23 @@ import apiClient from "../api/apiConfig";
 import AuthContext from "../auth/context";
 import { color } from "../config/colors";
 import Screen from "../components/Screen";
+import JobCard from "../components/JobCard";
 
-const EmployeePostedJobScreen = () => {
+const EmployeePostedJobScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const { user, setUser } = useContext(AuthContext);
+
+  const jobs = [
+    { id: 1, title: "Job 1" },
+    { id: 2, title: "Job 2" },
+    { id: 3, title: "Job 3" },
+    // Add more job objects as needed
+  ];
+
+  const handleJobPress = (jobId) => {
+    // Navigate to the screen that displays applied candidates for the selected job
+    navigation.navigate("AppliedCandidates", { jobId });
+  };
   //   console.log(user);
 
   const getData = async () => {
@@ -46,7 +59,7 @@ const EmployeePostedJobScreen = () => {
       <Text>EmployeePostedJobScreen</Text>
       {/* <Text>EmployeePostedJobScreen</Text> */}
 
-      <FlatList
+      {/* <FlatList
         // style={styles.listOfJob}
         data={data}
         keyExtractor={(item) => item?._id}
@@ -57,7 +70,17 @@ const EmployeePostedJobScreen = () => {
           //   />
           <Text> {item.title} </Text>
         )}
-      />
+      /> */}
+
+      <ScrollView>
+        {data.map((job) => (
+          <JobCard
+            key={job._id}
+            jobTitle={job.title}
+            onPress={() => handleJobPress(job._id)}
+          />
+        ))}
+      </ScrollView>
     </Screen>
   );
 };
