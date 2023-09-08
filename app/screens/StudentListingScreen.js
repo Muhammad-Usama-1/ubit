@@ -1,14 +1,41 @@
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";
 import { FontSize } from "../config/styles";
 import AppButton from "../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
+import apiClient from "../api/apiConfig";
 
 const ProfileCard = ({ item }) => {
+  const [data, setData] = useState([]);
+
   const navigation = useNavigation();
+  const getData = async () => {
+    try {
+      const response = await apiClient.get("/users/getAllUsers");
+
+      console.log(response.data);
+      // Set Jobs Array if it is greater to 0
+      if (response.data.length > 0) {
+        setData([response.data[0]]);
+      }
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+
+      return () => {
+        // Cleanup function
+        // If needed, you can perform any cleanup here
+      };
+    }, [])
+  );
 
   return (
     <View style={styles.profileCard}>

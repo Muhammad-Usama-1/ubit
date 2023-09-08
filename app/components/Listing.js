@@ -6,6 +6,7 @@ import { color } from "../config/colors";
 import AppTag from "./AppTag";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
+import AssetsConfig from "../api/AssetsConfig";
 
 const Listing = ({
   item,
@@ -16,6 +17,7 @@ const Listing = ({
   specialPress,
 }) => {
   // const navigation = useNavigation();
+  // console.log(title.img);
   return (
     <View style={styles.jobCardContainer}>
       {special && (
@@ -33,8 +35,11 @@ const Listing = ({
       >
         <Image
           style={styles.image}
+          // source={{
+          //   uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+          // }}
           source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
+            uri: `${AssetsConfig}${item.img}`,
           }}
         />
         <View style={styles.detailsContainer}>

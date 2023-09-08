@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import { color } from "../config/colors";
 import AppText from "../components/AppText";
@@ -10,6 +10,7 @@ import AppFormInput from "../components/forms/AppFormInput";
 import * as yup from "yup";
 import FormSubmit from "../components/forms/FormSubmit";
 import apiClient from "../api/apiConfig";
+import AuthContext from "../auth/context";
 
 const validationSchema = yup.object().shape({
   password: yup.string().min(4).required().label("Password"),
@@ -21,24 +22,27 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPasswdScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(AuthContext);
   const handlePasswordReset = async (values) => {
     const { password, confirmPassword } = values;
-    console.log(values);
+    console.log("clicked btnnnn");
     try {
       const data = await apiClient.post("users/resetPassword", {
         password,
         confirmPassword,
       });
+
       if (data.status >= 400) {
         alert(data.data.error);
         console.log(data.data);
         return;
       }
-      console.log(data.data);
+      // console.log(data.data);
       alert(data.data.message);
       // alert("OTP verify Success");
       // Update user state
-      navigation.navigate("Home");
+      navigation.navigate("Sign In");
+      // navigation.navigate("profile");
     } catch (error) {
       console.log("ERROR", error);
     }

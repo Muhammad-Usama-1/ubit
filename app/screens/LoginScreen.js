@@ -51,10 +51,10 @@ const LoginScreen = ({ navigation }) => {
         email,
         password,
       });
-      console.log(data.data);
+      // console.log("--->", data.data);
 
       if (data.status >= 400) {
-        alert(data.data);
+        alert(data.data.error);
         return;
       }
       // console.log(data.data);

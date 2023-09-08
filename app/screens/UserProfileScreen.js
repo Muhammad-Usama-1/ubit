@@ -18,11 +18,12 @@ import AuthContext from "../auth/context";
 import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
 import AssetsConfig from "../api/AssetsConfig";
+import AppButton from "../components/AppButton";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
-  console.log(user.user.resumeDetails);
+  // console.log(user.user.resumeDetails);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -74,11 +75,12 @@ const UserProfileScreen = ({ navigation }) => {
         {user?.user?.role === "student" && (
           <AppText
             onPress={() => navigation.navigate("ProfileEdit")}
-            style={{ textAlign: "right", marginRight: 20, fontWeight: "bold" }}
+            style={styles.editBtnprofile}
           >
             Edit
           </AppText>
         )}
+        <AppButton title={"Logout"} onPress={() => setUser(null)} />
 
         <View style={styles.profileContainer}>
           <View style={styles.photoContainer}>
@@ -100,11 +102,12 @@ const UserProfileScreen = ({ navigation }) => {
           </View>
           {/* <AppText style={styles.username}>Iqra Aziz Remani</AppText> */}
           <AppText style={styles.username}>
-            {route?.params?.user || user.user.name || "Anonoyomous User"}
+            {route?.params?.user || user.user?.name || "Anonoyomous User"}
           </AppText>
 
           <AppText style={styles.userJobSeek}>
-            {user?.user?.personalDetails?.[0]?.skill ?? "Employer"}
+            {/* {user?.user?.personalDetails?.[0]?.skill ?? "Employer"} */}
+            {user?.user?.role ?? "Employer"}
           </AppText>
 
           {user.user?.personalDetails?.skill ? (
@@ -272,5 +275,12 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     marginBottom: 10,
     // mt,
+  },
+
+  editBtnprofile: {
+    textAlign: "right",
+    marginRight: 20,
+    fontWeight: "bold",
+    padding: 10,
   },
 });

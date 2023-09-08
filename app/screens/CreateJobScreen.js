@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Screen from "../components/Screen";
 import * as yup from "yup";
 import AppForm from "../components/forms/AppForm";
@@ -20,6 +20,8 @@ import AppDscribFeild from "../components/forms/AppDscribFeild";
 import FormSubmit from "../components/forms/FormSubmit";
 import ImageInput from "../components/forms/ImageInput";
 import apiClient from "../api/apiConfig";
+import { useNavigation } from "@react-navigation/native";
+import AuthContext from "../auth/context";
 
 const validationSchema = yup.object().shape({
   role: yup.string().required().label("Role"),
@@ -37,8 +39,13 @@ const validationSchema = yup.object().shape({
 
 const options = ["Internship", "Full Time", "Half Time"];
 const CreateJobScreen = () => {
+  const { user, setUser } = useContext(AuthContext);
+
+  const navigation = useNavigation();
+
   const handlePostJob = async (values) => {
     console.log(values);
+    apiClient.setHeader("Authorization", `${user.token}`);
     const formData = new FormData();
     formData.append("title", values.role);
     formData.append("location", values.location);
@@ -48,13 +55,17 @@ const CreateJobScreen = () => {
       name: "image.jpg", // Set a filename for the image
       type: "image/jpeg", // Set the image MIME type according to your requirements
     });
+
     try {
       const response = await apiClient.post("job/posting", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `${user.token}`,
         },
       });
-      console.log("submitteddddddd");
+
+      console.log(response.data);
+      navigation.navigate("availableJobs");
 
       console.log(response.data);
     } catch (error) {
