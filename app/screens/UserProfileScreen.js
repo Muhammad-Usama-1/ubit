@@ -80,7 +80,11 @@ const UserProfileScreen = ({ navigation }) => {
             Edit
           </AppText>
         )}
-        <AppButton title={"Logout"} onPress={() => setUser(null)} />
+        {route?.params?.user ? (
+          <AppButton />
+        ) : (
+          <AppButton title={"Logout"} onPress={() => setUser(null)} />
+        )}
 
         <View style={styles.profileContainer}>
           <View style={styles.photoContainer}>
