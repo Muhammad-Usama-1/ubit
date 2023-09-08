@@ -72,3 +72,7 @@ any password criteria ?
 pdf upload , prompt
 
 filteration....
+
+# modify job apply
+
+image in job details

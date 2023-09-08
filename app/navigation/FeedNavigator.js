@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 
 const FeedNavigator = () => {
   const { user, setUser } = useContext(AuthContext);
-  console.log("---------> ", user?.user?.role);
+  // console.log("---------> ", user?.user?.role);
 
   return (
     <Stack.Navigator
@@ -31,7 +31,6 @@ const FeedNavigator = () => {
         <>
           <Stack.Screen name="students" component={StudentListingScreen} />
           <Stack.Screen name="studentProfile" component={UserProfileScreen} />
-          <Stack.Screen name="postedjobs" component={EmployeePostedJobScreen} />
 
           {/* <Stack.Screen
             options={{ headerShown: false }}
