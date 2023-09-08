@@ -12,6 +12,7 @@ import AvailableJobScreen from "../screens/AvailableJobScreen";
 import ApplySuccess from "../screens/AppliedSuccessScreen";
 import StudentListingScreen from "../screens/StudentListingScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
+import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const EmpFeedNavigator = () => (
   >
     <Stack.Screen name="students" component={StudentListingScreen} />
     <Stack.Screen name="studentProfile" component={UserProfileScreen} />
+    <Stack.Screen name="postedjobs" component={EmployeePostedJobScreen} />
   </Stack.Navigator>
 );
 export default EmpFeedNavigator;
