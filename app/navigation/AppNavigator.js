@@ -18,6 +18,7 @@ import EmpFeedNavigator from "./EmpFeedNavigator";
 import AuthContext from "../auth/context";
 import SuggestionScreen from "../screens/SuggestionScreen";
 import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
+import EmployeJobNavigator from "./EmployeJobNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +60,7 @@ export default function AppNavigator() {
             ),
           }}
           name="your Jobs"
-          component={EmployeePostedJobScreen}
+          component={EmployeJobNavigator}
         />
       )}
       {user?.user?.role == "student" && (
