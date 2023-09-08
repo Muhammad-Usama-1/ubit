@@ -30,11 +30,11 @@ const FeedNavigator = () => {
         <>
           <Stack.Screen name="students" component={StudentListingScreen} />
           <Stack.Screen name="studentProfile" component={UserProfileScreen} />
-          <Stack.Screen
+          {/* <Stack.Screen
             options={{ headerShown: false }}
             name="availableJobs"
             component={AvailableJobScreen}
-          />
+          /> */}
           {/* <Stack.Screen name="Jobs" component={JobListingScreen} /> */}
         </>
       ) : (
