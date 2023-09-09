@@ -54,16 +54,26 @@ const ApplyToJobScreen = ({ navigation }) => {
     };
     // console.log("----->", user);
     const formData = new FormData();
-    formData.append("resume", selectedFile.uri);
+    // formData.append("resume", selectedFile.uri);
+    formData.append("resume", {
+      uri: selectedFile.uri,
+      name: "resume.pdf",
+      type: "application/pdf",
+    });
+
     formData.append("name", name);
     formData.append("portfolioLink", portfolio);
     formData.append("coverLetter", coverLetter);
     formData.append("jobId", params.data._id);
 
     try {
-      const response = await apiClient.post("/job/application", formData, {
-        headers,
-      });
+      const response = await apiClient.post(
+        `/job/application?jobId=${params.data._id}`,
+        formData,
+        {
+          headers,
+        }
+      );
       console.log("Apply jobs Data", response.data);
 
       navigation.navigate("applysuccess", { name: params.data.title });

@@ -7,10 +7,14 @@ import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
 import { Margin } from "../config/styles";
 import AppHeading from "../components/AppHeading";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, CommonActions } from "@react-navigation/native";
 
 const ApplySuccess = ({ navigation }) => {
   const { params } = useRoute();
+  const resetAction = CommonActions.reset({
+    index: 0, // Set the index of the root screen
+    routes: [{ name: "Home" }], // Specify the root screen name
+  });
 
   // const navigation = useNavigation();
 
@@ -30,7 +34,7 @@ const ApplySuccess = ({ navigation }) => {
         role.
       </AppText>
       <AppButton
-        // onPress={() => navigation.navigate("home")}
+        onPress={() => navigation.dispatch(resetAction)}
         bgcolor="blue"
         colorText="white"
         title={"Go Back to Home"}

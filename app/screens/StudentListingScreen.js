@@ -19,7 +19,7 @@ const ProfileCard = ({ item }) => {
 
       console.log(response.data);
       // Set Jobs Array if it is greater to 0
-      if (response.data.length > 0) {
+      if (response.data?.length > 0) {
         setData([response.data[0]]);
       }
     } catch (error) {

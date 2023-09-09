@@ -17,6 +17,8 @@ import CreateJobScreen from "../screens/CreateJobScreen";
 import EmpFeedNavigator from "./EmpFeedNavigator";
 import AuthContext from "../auth/context";
 import SuggestionScreen from "../screens/SuggestionScreen";
+import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
+import EmployeJobNavigator from "./EmployeJobNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +46,21 @@ export default function AppNavigator() {
           }}
           name="createJob"
           component={CreateJobScreen}
+        />
+      )}
+      {user?.user?.role == "employer" && (
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="newspaper"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+          name="your Jobs"
+          component={EmployeJobNavigator}
         />
       )}
       {user?.user?.role == "student" && (

@@ -13,12 +13,13 @@ import ApplySuccess from "../screens/AppliedSuccessScreen";
 import AuthContext from "../auth/context";
 import StudentListingScreen from "../screens/StudentListingScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
+import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
 
 const Stack = createNativeStackNavigator();
 
 const FeedNavigator = () => {
   const { user, setUser } = useContext(AuthContext);
-  console.log("---------> ", user?.user?.role);
+  // console.log("---------> ", user?.user?.role);
 
   return (
     <Stack.Navigator
@@ -30,11 +31,12 @@ const FeedNavigator = () => {
         <>
           <Stack.Screen name="students" component={StudentListingScreen} />
           <Stack.Screen name="studentProfile" component={UserProfileScreen} />
-          <Stack.Screen
+
+          {/* <Stack.Screen
             options={{ headerShown: false }}
             name="availableJobs"
             component={AvailableJobScreen}
-          />
+          /> */}
           {/* <Stack.Screen name="Jobs" component={JobListingScreen} /> */}
         </>
       ) : (
