@@ -8,34 +8,10 @@ import AppButton from "../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import apiClient from "../api/apiConfig";
+import AssetsConfig from "../api/AssetsConfig";
 
 const ProfileCard = ({ item }) => {
-  const [data, setData] = useState([]);
-
   const navigation = useNavigation();
-  const getData = async () => {
-    try {
-      const response = await apiClient.get("/users/getAllUsers");
-
-      console.log(response.data);
-      // Set Jobs Array if it is greater to 0
-      if (response.data?.length > 0) {
-        setData([response.data[0]]);
-      }
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  };
-  useFocusEffect(
-    React.useCallback(() => {
-      getData();
-
-      return () => {
-        // Cleanup function
-        // If needed, you can perform any cleanup here
-      };
-    }, [])
-  );
 
   return (
     <View style={styles.profileCard}>
@@ -43,7 +19,13 @@ const ProfileCard = ({ item }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.imagecenter}
-          source={require("../assets/mosh.jpg")}
+          // source={require("../assets/mosh.jpg")}
+
+          source={{
+            uri: `${AssetsConfig}${
+              item.personalDetails?.[0]?.picture ?? "Picture not available"
+            } `,
+          }}
         />
         <AppText style={styles.jobTitle}> {item.job} </AppText>
       </View>
@@ -52,7 +34,7 @@ const ProfileCard = ({ item }) => {
         <AppText
           // studentProfile
           onPress={() =>
-            navigation.navigate("studentProfile", { user: item.name })
+            navigation.navigate("studentProfile", { student: item })
           }
           style={styles.textTag}
         >
@@ -86,6 +68,29 @@ const students = [
   },
 ];
 const StudentListingScreen = ({ navigation }) => {
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await apiClient.get("/users/getAllUsers");
+
+      console.log("Student DATA", response.data.users);
+
+      setData(response.data.users);
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+
+      return () => {
+        // Cleanup function
+        // If needed, you can perform any cleanup here
+      };
+    }, [])
+  );
   return (
     <Screen style={styles.container}>
       <AppText>Student Listing</AppText>
@@ -96,7 +101,7 @@ const StudentListingScreen = ({ navigation }) => {
 
       <FlatList
         // style={styles.listOfJob}
-        data={students}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ProfileCard
