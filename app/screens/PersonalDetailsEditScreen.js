@@ -40,30 +40,39 @@ const PersonalDetailsEditScreen = () => {
   const [modalVisibleR, setModalVisibleR] = useState(false);
 
   const hadleProfileEdit = async (values) => {
-    console.log(user.token);
+    // console.log(user.token);
 
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("skill", values.skill);
-    console.log(values.image);
-    formData.append("picture", {
-      uri: values.image,
-      name: "image.jpg", // Set a filename for the image
-      type: "image/jpeg", // Set the image MIME type according to your requirements
-    });
+    // console.log(values.image);
+    if (values.image) {
+      formData.append("picture", {
+        uri: values.image,
+        name: "image.jpg", // Set a filename for the image
+        type: "image/jpeg", // Set the image MIME type according to your requirements
+      });
+    }
     const headers = {
       "Content-Type": "multipart/form-data",
       Authorization: `${user.token}`,
     };
     try {
-      const response = await apiClient.post(
-        "/users/personalDetails",
-        formData,
-        {
+      let response;
+      if (user.user.personalDetails) {
+        response = await apiClient.put(
+          "/users/updatePersonalDetails",
+          formData,
+          {
+            headers,
+          }
+        );
+      } else
+        response = await apiClient.post("/users/personalDetails", formData, {
           headers,
-        }
-      );
-      console.log("RESPONSE--->", response.data);
+        });
+
+      console.log("RESPONSE- in update-->", response.data);
       // setUser(...response.data);
       // setUser((prevUser) => ({
       //   ...prevUser, // Keep existing user properties
@@ -125,12 +134,15 @@ const PersonalDetailsEditScreen = () => {
     const formData = new FormData();
     formData.append("prompt", values.prompt);
 
-    formData.append("resume", {
-      uri: values.pdf,
-      name: "resume.pdf", // Set a filename for the pdf
-      type: "application/pdf", // Set the MIME type for PDF
-      // type: "image/jpeg", // Set the image MIME type according to your requirements
-    });
+    if (values.pdf) {
+      formData.append("resume", {
+        uri: values.pdf,
+        name: "resume.pdf", // Set a filename for the pdf
+        type: "application/pdf", // Set the MIME type for PDF
+        // type: "image/jpeg", // Set the image MIME type according to your requirements
+      });
+    }
+
     // console.log(values);
     const headers = {
       "Content-Type": "multipart/form-data",
@@ -141,6 +153,7 @@ const PersonalDetailsEditScreen = () => {
       const response = await apiClient.post("users/resumeAnalyzer", formData, {
         headers,
       });
+
       console.log("RESPONSE--->", response.data);
       // setUser(...response.data);
       // setUser((prevUser) => ({
