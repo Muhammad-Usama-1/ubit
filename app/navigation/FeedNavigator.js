@@ -14,6 +14,7 @@ import AuthContext from "../auth/context";
 import StudentListingScreen from "../screens/StudentListingScreen";
 import UserProfileScreen from "../screens/UserProfileScreen";
 import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
+import StudentProfileScreen from "../screens/StudentProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +31,10 @@ const FeedNavigator = () => {
       {user?.user?.role == "employer" ? (
         <>
           <Stack.Screen name="students" component={StudentListingScreen} />
-          <Stack.Screen name="studentProfile" component={UserProfileScreen} />
+          <Stack.Screen
+            name="studentProfile"
+            component={StudentProfileScreen}
+          />
 
           {/* <Stack.Screen
             options={{ headerShown: false }}

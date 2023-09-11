@@ -79,3 +79,11 @@ filteration....
 
 image in job details
 logout btn is also comming to student listing
+
+employer is coming when i see student listing screen
+
+# 12 Sep issue
+
+personal details update
+
+user profile screen image from upload

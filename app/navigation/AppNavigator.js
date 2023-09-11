@@ -19,6 +19,7 @@ import AuthContext from "../auth/context";
 import SuggestionScreen from "../screens/SuggestionScreen";
 import EmployeePostedJobScreen from "../screens/EmployeePostedJobScreen";
 import EmployeJobNavigator from "./EmployeJobNavigator";
+import ResourcesScreen from "../screens/ResourcesScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,19 @@ export default function AppNavigator() {
         name="Home"
         component={FeedNavigator}
       />
+      {/* <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="alpha-r-box"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        name="resources"
+        component={ResourcesScreen}
+      /> */}
       {user?.user?.role == "employer" && (
         <Tab.Screen
           options={{
@@ -48,6 +62,22 @@ export default function AppNavigator() {
           component={CreateJobScreen}
         />
       )}
+      {user?.user?.role == "employer" || (
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="alpha-r-box"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+          name="resources"
+          component={ResourcesScreen}
+        />
+      )}
+
       {user?.user?.role == "employer" && (
         <Tab.Screen
           options={{

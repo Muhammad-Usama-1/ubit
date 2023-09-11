@@ -19,11 +19,13 @@ import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
 import AssetsConfig from "../api/AssetsConfig";
 import AppButton from "../components/AppButton";
+import * as OpenAnything from "react-native-openanything";
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
   const { user, setUser } = useContext(AuthContext);
-  // console.log(user.user.resumeDetails);
+
+  console.log(user?.user?.personalDetails?.[0]?.picture);
 
   // const headers = {
   //   Authorization: `${user.token}`,
@@ -39,7 +41,7 @@ const UserProfileScreen = ({ navigation }) => {
       const response = await apiClient.get("/users/getSingleUser");
       // const response = await apiClient.get("/users/getSingleUser");
 
-      console.log("RESPONSE--->", response.data);
+      console.log("RESPONSE In User profile--->", response.data);
       // setUser(...response.data);
       setUser((prevUser) => ({
         ...prevUser, // Keep existing user properties
@@ -80,11 +82,12 @@ const UserProfileScreen = ({ navigation }) => {
             Edit
           </AppText>
         )}
-        {route?.params?.user ? (
+        <AppButton title={"Logout"} onPress={() => setUser(null)} />
+        {/* {route?.params?.user ? (
           <AppButton />
         ) : (
           <AppButton title={"Logout"} onPress={() => setUser(null)} />
-        )}
+        )} */}
 
         <View style={styles.profileContainer}>
           <View style={styles.photoContainer}>
@@ -95,7 +98,7 @@ const UserProfileScreen = ({ navigation }) => {
               // }}
 
               source={{
-                uri: `${AssetsConfig}${
+                uri: `${AssetsConfig}uploads/${
                   user?.user?.personalDetails?.[0]?.picture ??
                   "Picture not available"
                 } `,
@@ -180,18 +183,20 @@ const UserProfileScreen = ({ navigation }) => {
               </View>
             ))}
             {/* sedction Resume */}
-            {/* <AppText style={styles.username}>Education</AppText>
-            {user?.user?.resumeDetails?.map((el) => (
-              <View style={styles.sectionWhiteBG}>
-                <View>
-                  <AppText style={{ fontWeight: "bold" }}>Bachelors</AppText>
-                  <AppText>UBIT</AppText>
+            <AppText style={styles.username}>Resume</AppText>
+            {user?.user?.resumeDetails?.map((el) => {
+              // console.log(el);
+              return (
+                <View style={styles.sectionWhiteBG}>
+                  <AppButton
+                    onPress={() =>
+                      OpenAnything.Pdf(`${AssetsConfig}${el.resume}`)
+                    }
+                    title={"Open Resume"}
+                  />
                 </View>
-                <View>
-                  <AppText>Dec 20 - Feb 21</AppText>
-                </View>
-              </View>
-            ))} */}
+              );
+            })}
           </View>
         )}
       </ScrollView>
