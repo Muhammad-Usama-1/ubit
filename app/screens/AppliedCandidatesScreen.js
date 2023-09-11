@@ -10,9 +10,13 @@ import Screen from "../components/Screen";
 import { color } from "../config/colors";
 import apiClient from "../api/apiConfig";
 import { useFocusEffect } from "@react-navigation/native";
-
+import AppButton from "../components/AppButton";
+import * as OpenAnything from "react-native-openanything";
+import AssetsConfig from "../api/AssetsConfig";
+import AppHeading from "../components/AppHeading";
+import AppText from "../components/AppText";
 const AppliedCandidatesScreen = ({ route }) => {
-  const { jobId } = route.params; // Get the jobId from route.params
+  const { jobId, title } = route.params; // Get the jobId from route.params
   const [candidates, setCandidates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,7 +56,8 @@ const AppliedCandidatesScreen = ({ route }) => {
 
   return (
     <Screen style={styles.container}>
-      <Text>AppliedCandidatesScreen</Text>
+      {/* <Text>AppliedCandidatesScreen</Text> */}
+      <AppText style={styles.subHeading}> Candidates in {title} </AppText>
 
       <View style={{ flex: 1, padding: 16 }}>
         {isLoading ? (
@@ -64,12 +69,35 @@ const AppliedCandidatesScreen = ({ route }) => {
             data={candidates}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => {
-              console.log(item.resumeDetails);
+              // console.log("Resume Details", `${AssetsConfig}${item.resume}`);
               return (
-                <View style={{ marginBottom: 16 }}>
+                <View
+                  // style={{ marginBottom: 16 }}
+                  style={{
+                    backgroundColor: "white",
+                    padding: 10,
+                    // margin: 5,
+                    marginVertical: 5,
+                    marginBottom: 10,
+                    borderRadius: 10,
+                    elevation: 3,
+                  }}
+                >
                   <Text style={{ fontSize: 18 }}>{item.name}</Text>
-                  <Text>{item.email}</Text>
-                  {/* Add more candidate information here */}
+                  <AppButton
+                    onPress={() =>
+                      OpenAnything.Pdf(`${AssetsConfig}${item.resume}`)
+                    }
+                    title={"Open Resume."}
+                  />
+                  <Text> Emial : {item.email}</Text>
+                  <AppButton
+                    onPress={() =>
+                      OpenAnything.Email(item.email, "Here is Your Job Offer")
+                    }
+                    title={"Send Offer"}
+                  />
+                  <Text> Cover Letter : {item.coverLetter}</Text>
                 </View>
               );
             }}
@@ -84,8 +112,13 @@ export default AppliedCandidatesScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.danger,
+    backgroundColor: color.primary,
     flex: 1,
+  },
+  subHeading: {
+    fontSize: 26,
+    textAlign: "center",
+    marginBottom: 10,
   },
 });
 
