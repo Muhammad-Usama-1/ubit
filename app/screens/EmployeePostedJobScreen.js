@@ -8,6 +8,7 @@ import AuthContext from "../auth/context";
 import { color } from "../config/colors";
 import Screen from "../components/Screen";
 import JobCard from "../components/JobCard";
+import AppText from "../components/AppText";
 
 const EmployeePostedJobScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -20,9 +21,9 @@ const EmployeePostedJobScreen = ({ navigation }) => {
     // Add more job objects as needed
   ];
 
-  const handleJobPress = (jobId) => {
+  const handleJobPress = (jobId, title) => {
     // Navigate to the screen that displays applied candidates for the selected job
-    navigation.navigate("AppliedCandidates", { jobId });
+    navigation.navigate("AppliedCandidates", { jobId, title });
   };
   //   console.log(user);
 
@@ -56,7 +57,9 @@ const EmployeePostedJobScreen = ({ navigation }) => {
   );
   return (
     <Screen style={styles.container}>
-      <Text>EmployeePostedJobScreen</Text>
+      {/* <Text>EmployeePostedJobScreen</Text> */}
+      <AppText style={styles.subHeading}> Your Posted Jobs </AppText>
+
       {/* <Text>EmployeePostedJobScreen</Text> */}
 
       {/* <FlatList
@@ -75,9 +78,10 @@ const EmployeePostedJobScreen = ({ navigation }) => {
       <ScrollView>
         {data.map((job) => (
           <JobCard
+            job={job}
             key={job._id}
             jobTitle={job.title}
-            onPress={() => handleJobPress(job._id)}
+            onPress={() => handleJobPress(job._id, job.title)}
           />
         ))}
       </ScrollView>
@@ -89,7 +93,12 @@ export default EmployeePostedJobScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.danger,
+    backgroundColor: color.primary,
     flex: 1,
+  },
+  subHeading: {
+    fontSize: 26,
+    textAlign: "center",
+    marginBottom: 10,
   },
 });
