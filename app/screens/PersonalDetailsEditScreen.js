@@ -16,8 +16,13 @@ import AppText from "../components/AppText";
 import apiClient from "../api/apiConfig";
 import AuthContext from "../auth/context";
 import DatePickerField from "../components/forms/DatePickerField";
-
+import { useNavigation } from "@react-navigation/native";
 const PersonalDetailsEditScreen = () => {
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    navigation.goBack();
+  };
   const { user, setUser } = useContext(AuthContext);
 
   const handlePdfPick = async (setFieldValue) => {
@@ -168,6 +173,8 @@ const PersonalDetailsEditScreen = () => {
   };
   return (
     <Screen style={styles.container}>
+      <AppButton onPress={goBack} title={"Go back"} />
+
       {/* APP FORM FOR PERSONAL DETAILS */}
       <AppForm
         initialValues={{
