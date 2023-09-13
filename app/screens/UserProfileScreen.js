@@ -98,7 +98,7 @@ const UserProfileScreen = ({ navigation }) => {
               // }}
 
               source={{
-                uri: `${AssetsConfig}uploads/${
+                uri: `${AssetsConfig}${
                   user?.user?.personalDetails?.[0]?.picture ??
                   "Picture not available"
                 } `,
