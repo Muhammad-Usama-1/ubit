@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import apiClient from "../api/apiConfig";
 import AssetsConfig from "../api/AssetsConfig";
+import * as OpenAnything from "react-native-openanything";
 
 const ProfileCard = ({ item }) => {
   const navigation = useNavigation();
@@ -41,7 +42,10 @@ const ProfileCard = ({ item }) => {
           See Profile
         </AppText>
         <AppText
-          onPress={() => navigation.navigate("Messages")}
+          // onPress={() => navigation.navigate("Messages")}
+          onPress={() =>
+            OpenAnything.Email(item.email, "Are you intereste in Job Offer")
+          }
           style={styles.textTag}
         >
           Message
@@ -72,7 +76,7 @@ const StudentListingScreen = ({ navigation }) => {
 
   const getData = async () => {
     try {
-      const response = await apiClient.get("/users/getAllUsers");
+      const response = await apiClient.get("/users/getStudents");
 
       console.log("Student DATA", response.data.users);
 
