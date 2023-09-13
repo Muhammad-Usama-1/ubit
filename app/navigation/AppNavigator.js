@@ -27,6 +27,9 @@ export default function AppNavigator() {
   const { user, setUser } = useContext(AuthContext);
   // console.log("user in app navigator", user?.role);
 
+
+  // Naigation to All screens
+
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
