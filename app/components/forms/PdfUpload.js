@@ -11,6 +11,8 @@ const PdfUpload = ({ name, label }) => {
   // const []
   const { setFieldValue, errors, touched, values } = useFormikContext();
 
+  // Pdf Pick Uploader Func
+
   const handlePdfPick = async () => {
     try {
       const res = await DocumentPicker.getDocumentAsync({
