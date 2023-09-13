@@ -9,6 +9,8 @@ function Icon({
   iconColor = "#fff",
   onPress,
 }) {
+
+  // Icon Common Component 
   return (
     <TouchableOpacity
       onPress={onPress}

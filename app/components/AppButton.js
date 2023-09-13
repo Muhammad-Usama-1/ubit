@@ -5,6 +5,7 @@ import { color } from "../config/colors";
 import Icon from "./Icon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 function AppButton({ icon, title, colorText, onPress, bgcolor = "primary" }) {
+  // Application Common Button Tab
   return (
     <TouchableOpacity
       onPress={onPress}

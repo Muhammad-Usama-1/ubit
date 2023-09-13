@@ -6,6 +6,7 @@ import AppText from "./AppText";
 const GoBackButton = ({ handleCloseModal }) => {
   const navigation = useNavigation();
 
+  // Go One Step Functionality
   const handleGoBack = () => {
     navigation.goBack();
   };
