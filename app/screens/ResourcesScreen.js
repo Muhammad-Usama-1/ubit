@@ -14,30 +14,74 @@ import Screen from "../components/Screen";
 import { color } from "../config/colors";
 import { useFocusEffect } from "@react-navigation/native";
 
-const data = [
+const dataC = [
   {
     id: "1",
     category: "scholarship",
     title: "Scholarship",
-    link: "https://example.com/scholarship",
+    link: "https://www.gistkobo.com/2023/09/06/british-council-full-degree-scholarships/",
   },
   {
     id: "2",
     category: "course",
     title: "Free Course",
-    link: "https://example.com/course",
+    link: "https://www.udemy.com/topic/online-business/free/",
   },
+
+  //
   {
     id: "3",
     category: "webinar",
     title: "Webinar",
-    link: "https://example.com/webinar",
+    link: "https://www.linkedin.com/events/7098284569883213824/about/",
+  },
+
+  {
+    id: "4",
+    category: "job_fair",
+    title: "Job Fair",
+    link: "https://pakistanhinducouncil.org.pk/karachi-job-fair-2023/",
+  },
+  // Add more data items as needed
+];
+
+const data = [
+  {
+    id: "1",
+    category: "scholarship",
+    title: "Scholarship",
+    link: "https://www.gistkobo.com/2023/09/06/british-council-full-degree-scholarships/",
+  },
+  {
+    id: "2",
+    category: "course",
+    title: "Free Course",
+    link: "https://www.udemy.com/topic/online-business/free/",
+  },
+  {
+    id: "6",
+    category: "course",
+    title: "Time Management Fundamentals",
+    link: "https://www.linkedin.com/learning/time-management-fundamentals-14548057/the-power-of-managing-your-time",
+  },
+  //
+  {
+    id: "3",
+    category: "webinar",
+    title: "Webinar",
+    link: "https://www.linkedin.com/events/7098284569883213824/about/",
+  },
+  {
+    id: "5",
+    category: "webinar",
+    title: " BIM solutions for Architecture, Engineering and Construction",
+    link: "https://www.linkedin.com/events/cype-bimsolutionsforarchitectur7024693558582394880/about/",
   },
   {
     id: "4",
     category: "job_fair",
     title: "Job Fair",
-    link: "https://example.com/job-fair",
+    link: "https://pakistanhinducouncil.org.pk/karachi-job-fair-2023/",
   },
   // Add more data items as needed
 ];
@@ -82,7 +126,7 @@ const ResourcesScreen = () => {
     <Screen style={styles.container}>
       <View>
         <ScrollView horizontal>
-          {data?.map((item) => (
+          {dataC?.map((item) => (
             <TouchableHighlight
               activeOpacity={0.6}
               underlayColor={color.darkPrimray}
