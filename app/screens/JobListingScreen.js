@@ -145,7 +145,12 @@ const JobListingScreen = ({ navigation }) => {
             <Listing
               special={true}
               specialPress={() => navigation.navigate("availableJobs")}
-              onPress={() => navigation.navigate("JobsDetails", { data: item })}
+              onPress={() =>
+                navigation.navigate("JobsDetails", {
+                  data: item,
+                  img: item.img,
+                })
+              }
               item={item}
             />
           )}

@@ -7,12 +7,14 @@ import AppTag from "../components/AppTag";
 import AppButton from "../components/AppButton";
 import { useRoute } from "@react-navigation/native";
 import AuthContext from "../auth/context";
+import AssetsConfig from "../api/AssetsConfig";
 
-const JobDetails = ({ navigation }) => {
+const JobDetails = ({ navigation, route }) => {
   const { user, setUser } = useContext(AuthContext);
 
   const { params } = useRoute();
-  console.log(params.data);
+
+  console.log("JOB DETAILS IMAGE", `${AssetsConfig}${params.data.img}`);
 
   const handleNavigation = () => {
     if (!user?.user) {
@@ -27,9 +29,16 @@ const JobDetails = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.curveCard}>
           <Image
-            style={[styles.jobImage, styles.jobDetailsChildPosition]}
-            resizeMode="cover"
-            source={require("../assets/group-24.png")}
+            style={styles.image}
+            // source={{
+            //   uri: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQAQ3JMCi56vgzxgDirr7pArTs7W-90JU9O8lG-QQmVmJGC3txdGeVA0x73bki-6SzX7kVM-4KIpkDsDzs",
+            // }}
+
+            source={{
+              uri: `${AssetsConfig}${params?.data?.img}`,
+            }}
+
+            // source = {{}}
           />
           <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
             {params?.data?.title}
@@ -46,7 +55,7 @@ const JobDetails = ({ navigation }) => {
           </View>
           <View style={styles.salaryandLocContainer}>
             <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
-              Malir Karachi
+              {/* Malir Karachi */}
             </AppText>
             {/* <AppText style={[styles.jobTitle, styles.whiteTextBold]}>
               $160,00/year{" "}
@@ -127,5 +136,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-around",
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 10,
+    marginBottom: 20,
   },
 });

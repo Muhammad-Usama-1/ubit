@@ -103,12 +103,12 @@ const ApplyToJobScreen = ({ navigation }) => {
               />
               <View>
                 <AppText>{params.data.title}</AppText>
-                <AppText>Systems Limited</AppText>
+                {/* <AppText>Systems Limited</AppText> */}
               </View>
             </View>
             <View style={styles.salryandLoc}>
-              <AppText>$80000/year</AppText>
-              <AppText>$Karachi, sindh</AppText>
+              {/* <AppText>$80000/year</AppText> */}
+              <AppText>Karachi, sindh</AppText>
             </View>
           </View>
 
